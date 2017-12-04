@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f9a325053f3baa478ebf0c523d97a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile_folder: {fileID: 305215002}
+  tileFolder: {fileID: 305215002}
   tileCount: 0
   prefabs:
     fourway: {fileID: 1352540264013456, guid: c73737e243e332c47b52e7b97cebd1fd, type: 2}
