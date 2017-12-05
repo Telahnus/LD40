@@ -46,101 +46,147 @@ public class TileMaker : MonoBehaviour {
             case "deadend" : newTile = Instantiate(prefabs.deadend); break;
             default: return null;
         }
-        
+
+        newTile.transform.parent = this.tileFolder.transform;
+
         Tile newInfo = newTile.AddComponent<Tile>();
         newInfo.constructor(oldInfo.x, oldInfo.z, oldInfo.id, type);
-        newInfo.neighbours = oldInfo.neighbours;
-        graph.Remove(oldInfo);
+        newInfo.copyNeighbours(oldInfo);
         graph.Add(newInfo);
 
         return newTile;
 
     }
 
+    // flip a blank tile into a road tile according to a whole bunch of rules
     public void flipTile(Tile tile){
-        // to determine what type of road to make, need to know neighbours
-            // and next step required neighbours, so we never dead end
+
         int openings = 0;
         int neighbours = 0;
-        //bool[] roads = [false, false, false, false];
-        //bool north, east, south, west = false;
 
-        // check for existing neighbours first
+        // check existing connections first
         for (int i = 0; i < 4; i++){
-            Neighbour neighbour = tile.neighbours[i];
-            if (neighbour){ // neighbours ONLY exist if given by a flipped tile
+            if (tile.neighbours[i] !=null){ // neighbours ONLY exist if given by a flipped tile
                 neighbours ++;
-                if (neighbour.isOpen) {
+                if (tile.openings[i]) {
                     openings++;
                 }
             }
         }
 
+        // fill up remaining spaces randomly
         if (neighbours<4){
-            int start = Random.Range(0,4);
-            for (int i=0; i<4; i++){
-                int j = (i+start)%4;
-                if (tile.neighbours[j]){
-                    // skip existing neighbour
-                } else {
-                    Neighbour newNeighbour = new Neighbour();
-                    if (openings==0||openings==1){
-                        newNeighbour.constructor(null,true);
-                        openings++;
-                    } else if (openings==2){
-                        if (Random.value>0.5){
-                            newNeighbour.constructor(null,true);
+            if (tileCount <= 1){
+                for (int i = 0; i < 4; i++){
+                    tile.openings[i] = true;
+                    openings++;
+                }
+            } else {
+                int start = Random.Range(0,4); // to avoid bias, start at a random direction
+                for (int i=0; i<4; i++){
+                    int j = (i+start)%4;
+                    if (tile.neighbours[j]!=null){
+                        // skip existing neighbour
+                    } else {
+                        if (openings==0||openings==1){
+                            tile.openings[j] = true;
                             openings++;
-                        } else {
-                            newNeighbour.constructor(null,false);
-                        }
-                    } else if (openings==3){
-                        if (Random.value>0.75){
-                            newNeighbour.constructor(null,true);
-                            openings++;
-                        } else {
-                            newNeighbour.constructor(null,false);
+                        } else if (openings==2){
+                            if (Random.value>0.50){
+                                tile.openings[j] = true;
+                                openings++;
+                            }
+                        } else if (openings==3){
+                            if (Random.value>0.75){
+                                tile.openings[j] = true;
+                                openings++;
+                            }
                         }
                     }
-                    tile.neighbours[j] = newNeighbour;
                 }
             }
         }
 
         GameObject newTile;
+        int rotation = 0;
+
         if (openings==4){
             newTile = changeTilePrefab("fourway", tile);
         } else if (openings==3){
             newTile = changeTilePrefab("threeway", tile);
-            // set direction
+            // prefab is already closed at N(0)
+            // so dont rotate if closed at 0, rotate by 90 if closed at 1, etc
+            for (int i=0; i<4; i++){
+                if (!tile.openings[i]) { rotation = i*90; }
+            }
         } else if (openings==2){
-            var n = tile.neighbours;
-            var north = n[0].isOpen;
-            var south = n[2].isOpen;
-            if ((north&&south)||(!north&&!south)){
-               newTile = changeTilePrefab("straight", tile); 
-               // set direction
-            } else {
+            var north = tile.openings[0];
+            var east = tile.openings[1];
+            var south = tile.openings[2];
+            if (north==south){ // straight
+                newTile = changeTilePrefab("straight", tile); 
+                if (!(north && south)){
+                    rotation = 90;
+                }
+            } else { // corner
                 newTile = changeTilePrefab("corner", tile);
-                //set direction
+                // corner prefab is 1,2
+                // if i=1 works, then rotate by i-1
+                for (int i = 0; i < 4; i++){
+                    if (tile.openings[i] && tile.openings[(i+1)%4]) { rotation = (i-1)*90; }
+                }
             }
         } else if (openings==1){
             newTile = changeTilePrefab("deadend", tile);
-            // set direction
+            // prefab opening is W (3)
+            // so if opening is 0, i rotate CW by 90
+            for (int i=0; i<4; i++){
+                if (tile.openings[i]){rotation = (i+1)*90;}
+            }
         } else {
-            // you fucked up....
+            // you fucked up.... keep the old tile
+            newTile = tile.gameObject;
         }
+
+        // rotate new tile accordingly
+        newTile.transform.Rotate(0, (rotation), 0);
+        // remove old tile and gameobject
+        graph.Remove(tile);
+        Destroy(tile.gameObject);
+
+        Tile me = newTile.GetComponent<Tile>();
+
+        // finally create blank neighbours and/or exchange info
+        for (int i=0; i<4; i++){
+            // determine coordinate offset
+            int x = 0; int z = 0;
+            if (i==0) z = 1;
+            else if (i==1) x = 1;
+            else if (i==2) z =-1;
+            else if (i==3) x = -1;
+            // does tile already exist?
+            Tile t = findTile(me.x+x, me.z+z);
+            if (t==null){ // create a blank if null
+                GameObject newObject = createTile();
+                t = newObject.GetComponent<Tile>();
+                t.setLocation(me.x+x, me.z+z);
+            } // exchange info
+            me.neighbours[i] = t;
+            t.neighbours[(i + 2) % 4] = me;
+            t.openings[(i + 2) % 4] = me.openings[i];
+        }
+
     }
 
     public Tile findTile(int x, int z){
         foreach (Tile t in graph){
-            if (t.x==x && t.z==z) return t;
+            if (t.x == x && t.z == z) return t;
         }
         return null;
     }
 
     /* public void Start(){
-        graph = new List<Tile>();
+        print(graph.Count);
     } */
 
 }

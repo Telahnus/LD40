@@ -39,11 +39,20 @@ public class GameManager : MonoBehaviour {
 
         player = createObject(prefabs.cop); player.name = "player";
 		currentTile = tileMaker.createTile(); currentTile.name = "currentTile";
+
+		Tile t = currentTile.GetComponent<Tile>();
+		tileMaker.flipTile(t);
 	}
 
 	/// Update is called every frame, if the MonoBehaviour is enabled.
 	void Update(){
-		
+		// check for key presses
+			// get current tile
+			// check if direction is open
+				// move cop
+				// check new tile
+				// check if blank
+					// flip tile
 	}
 
 }

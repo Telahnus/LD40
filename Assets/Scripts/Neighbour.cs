@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Neighbour : MonoBehaviour {
+public class Neighbour {
 
 	public Tile tile;
 	//public string direction;
