@@ -417,6 +417,7 @@ MonoBehaviour:
     threeway: {fileID: 1222494709234100, guid: 327da2ffc58e2e940bbfeebfde6ce466, type: 2}
     corner: {fileID: 1668288984179260, guid: 455da92fdb07f60489541de1e8c3d386, type: 2}
     blank: {fileID: 1560916177861828, guid: ca9d8f28159e88b4bb8fcf37935ae56f, type: 2}
+    deadend: {fileID: 0}
 --- !u!1 &2082167018
 GameObject:
   m_ObjectHideFlags: 0

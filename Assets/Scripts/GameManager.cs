@@ -38,12 +38,7 @@ public class GameManager : MonoBehaviour {
     	tileMaker = this.GetComponent<TileMaker>();
 
         player = createObject(prefabs.cop); player.name = "player";
-		currentTile = tileMaker.createTile("fourway"); currentTile.name = "currentTile";
-
-		tileMaker.createTile("blank").GetComponent<Tile>().setLocation(0, 1);
-		tileMaker.createTile("blank").GetComponent<Tile>().setLocation(0, -1);
-		tileMaker.createTile("blank").GetComponent<Tile>().setLocation(-1, 0);
-		tileMaker.createTile("blank").GetComponent<Tile>().setLocation(1, 0);
+		currentTile = tileMaker.createTile(); currentTile.name = "currentTile";
 	}
 
 	/// Update is called every frame, if the MonoBehaviour is enabled.

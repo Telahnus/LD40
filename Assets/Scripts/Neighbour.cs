@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Connection : MonoBehaviour {
+public class Neighbour : MonoBehaviour {
 
 	public Tile tile;
-	public string direction;
+	//public string direction;
 	public bool isOpen;
 
-	public void constructor(Tile tile, string direction, bool isOpen){
+	public void constructor(Tile tile, bool isOpen){
 		this.tile = tile ? tile : null;
-		this.direction = direction;
+		//this.direction = direction;
 		this.isOpen = isOpen;
 	}
 
