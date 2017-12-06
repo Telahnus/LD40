@@ -390,7 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f897b0b82445c43854a0d27c66c26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTile: {fileID: 0}
+  copObject: {fileID: 0}
+  currentTileObject: {fileID: 0}
+  camera: {fileID: 2141742008}
   tileCount: 0
   prefabs:
     cop: {fileID: 1442551690224382, guid: 113672687acdea3499aecf55cf9e1eec, type: 2}
@@ -413,11 +415,11 @@ MonoBehaviour:
   tileCount: 0
   prefabs:
     fourway: {fileID: 1352540264013456, guid: c73737e243e332c47b52e7b97cebd1fd, type: 2}
-    straight: {fileID: 1086056201287036, guid: eef054f6a98a7314a8ac467c24738f18, type: 2}
-    threeway: {fileID: 1222494709234100, guid: 327da2ffc58e2e940bbfeebfde6ce466, type: 2}
-    corner: {fileID: 1668288984179260, guid: 455da92fdb07f60489541de1e8c3d386, type: 2}
-    blank: {fileID: 1560916177861828, guid: ca9d8f28159e88b4bb8fcf37935ae56f, type: 2}
-    deadend: {fileID: 0}
+    straight: {fileID: 1147660457186486, guid: eef054f6a98a7314a8ac467c24738f18, type: 2}
+    threeway: {fileID: 1456064582683588, guid: 327da2ffc58e2e940bbfeebfde6ce466, type: 2}
+    corner: {fileID: 1480479326162534, guid: 455da92fdb07f60489541de1e8c3d386, type: 2}
+    blank: {fileID: 1786207885521466, guid: ca9d8f28159e88b4bb8fcf37935ae56f, type: 2}
+    deadend: {fileID: 1130288404199076, guid: 5d34f072219d2e245a14071c22912746, type: 2}
 --- !u!1 &2082167018
 GameObject:
   m_ObjectHideFlags: 0

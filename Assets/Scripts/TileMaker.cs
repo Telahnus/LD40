@@ -33,33 +33,33 @@ public class TileMaker : MonoBehaviour {
         return tileObject;
     }
 
-    public GameObject changeTilePrefab(string type, Tile oldInfo)
+    public Tile changeTilePrefab(string type, Tile oldInfo)
     {   
-        GameObject newTile;
+        GameObject newTileObject;
         
         switch(type)
         {
-            case "fourway" : newTile = Instantiate(prefabs.fourway); break;
-            case "threeway" : newTile = Instantiate(prefabs.threeway); break;
-            case "straight" : newTile = Instantiate(prefabs.straight); break;
-            case "corner" : newTile = Instantiate(prefabs.corner); break;
-            case "deadend" : newTile = Instantiate(prefabs.deadend); break;
+            case "fourway" : newTileObject = Instantiate(prefabs.fourway); break;
+            case "threeway" : newTileObject = Instantiate(prefabs.threeway); break;
+            case "straight" : newTileObject = Instantiate(prefabs.straight); break;
+            case "corner" : newTileObject = Instantiate(prefabs.corner); break;
+            case "deadend" : newTileObject = Instantiate(prefabs.deadend); break;
             default: return null;
         }
 
-        newTile.transform.parent = this.tileFolder.transform;
+        newTileObject.transform.parent = this.tileFolder.transform;
 
-        Tile newInfo = newTile.AddComponent<Tile>();
-        newInfo.constructor(oldInfo.x, oldInfo.z, oldInfo.id, type);
-        newInfo.copyNeighbours(oldInfo);
-        graph.Add(newInfo);
+        Tile newTileScript = newTileObject.AddComponent<Tile>();
+        newTileScript.constructor(oldInfo.x, oldInfo.z, oldInfo.id, type);
+        newTileScript.copyNeighbours(oldInfo);
+        graph.Add(newTileScript);
 
-        return newTile;
+        return newTileScript;
 
     }
 
     // flip a blank tile into a road tile according to a whole bunch of rules
-    public void flipTile(Tile tile){
+    public Tile flipTile(Tile tile){
 
         int openings = 0;
         int neighbours = 0;
@@ -107,13 +107,13 @@ public class TileMaker : MonoBehaviour {
             }
         }
 
-        GameObject newTile;
+        Tile newTileScript;
         int rotation = 0;
 
         if (openings==4){
-            newTile = changeTilePrefab("fourway", tile);
+            newTileScript = changeTilePrefab("fourway", tile);
         } else if (openings==3){
-            newTile = changeTilePrefab("threeway", tile);
+            newTileScript = changeTilePrefab("threeway", tile);
             // prefab is already closed at N(0)
             // so dont rotate if closed at 0, rotate by 90 if closed at 1, etc
             for (int i=0; i<4; i++){
@@ -121,15 +121,14 @@ public class TileMaker : MonoBehaviour {
             }
         } else if (openings==2){
             var north = tile.openings[0];
-            var east = tile.openings[1];
             var south = tile.openings[2];
             if (north==south){ // straight
-                newTile = changeTilePrefab("straight", tile); 
+                newTileScript = changeTilePrefab("straight", tile); 
                 if (!(north && south)){
                     rotation = 90;
                 }
             } else { // corner
-                newTile = changeTilePrefab("corner", tile);
+                newTileScript = changeTilePrefab("corner", tile);
                 // corner prefab is 1,2
                 // if i=1 works, then rotate by i-1
                 for (int i = 0; i < 4; i++){
@@ -137,7 +136,7 @@ public class TileMaker : MonoBehaviour {
                 }
             }
         } else if (openings==1){
-            newTile = changeTilePrefab("deadend", tile);
+            newTileScript = changeTilePrefab("deadend", tile);
             // prefab opening is W (3)
             // so if opening is 0, i rotate CW by 90
             for (int i=0; i<4; i++){
@@ -145,16 +144,16 @@ public class TileMaker : MonoBehaviour {
             }
         } else {
             // you fucked up.... keep the old tile
-            newTile = tile.gameObject;
+            newTileScript = tile;
         }
 
+        GameObject newTileObject = newTileScript.gameObject;
+
         // rotate new tile accordingly
-        newTile.transform.Rotate(0, (rotation), 0);
+        newTileObject.transform.Rotate(0, (rotation), 0);
         // remove old tile and gameobject
         graph.Remove(tile);
         Destroy(tile.gameObject);
-
-        Tile me = newTile.GetComponent<Tile>();
 
         // finally create blank neighbours and/or exchange info
         for (int i=0; i<4; i++){
@@ -165,16 +164,18 @@ public class TileMaker : MonoBehaviour {
             else if (i==2) z =-1;
             else if (i==3) x = -1;
             // does tile already exist?
-            Tile t = findTile(me.x+x, me.z+z);
-            if (t==null){ // create a blank if null
+            Tile neighbourScript = findTile(newTileScript.x+x, newTileScript.z+z);
+            if (neighbourScript==null){ // create a blank if null
                 GameObject newObject = createTile();
-                t = newObject.GetComponent<Tile>();
-                t.setLocation(me.x+x, me.z+z);
+                neighbourScript = newObject.GetComponent<Tile>();
+                neighbourScript.setLocation(newTileScript.x+x, newTileScript.z+z);
             } // exchange info
-            me.neighbours[i] = t;
-            t.neighbours[(i + 2) % 4] = me;
-            t.openings[(i + 2) % 4] = me.openings[i];
+            newTileScript.neighbours[i] = neighbourScript;
+            neighbourScript.neighbours[(i + 2) % 4] = newTileScript;
+            neighbourScript.openings[(i + 2) % 4] = newTileScript.openings[i];
         }
+
+        return newTileScript;
 
     }
 

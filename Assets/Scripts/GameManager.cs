@@ -5,8 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
 	// PROPERTIES
-	private GameObject player;
-    public GameObject currentTile;
+	public GameObject copObject;
+    public GameObject currentTileObject;
+	public GameObject camera;
+
+	private Cop copScript;
+	private Tile currentTileScript;
 	private List<Tile> graph;
 	public int tileCount = 0;
 	private TileMaker tileMaker;
@@ -37,22 +41,40 @@ public class GameManager : MonoBehaviour {
 	void Start(){
     	tileMaker = this.GetComponent<TileMaker>();
 
-        player = createObject(prefabs.cop); player.name = "player";
-		currentTile = tileMaker.createTile(); currentTile.name = "currentTile";
+        currentTileObject = tileMaker.createTile(); currentTileObject.name = "currentTile";
+		currentTileScript = currentTileObject.GetComponent<Tile>();
+		
+		currentTileScript = tileMaker.flipTile(currentTileScript);
+		currentTileObject = currentTileScript.gameObject;
 
-		Tile t = currentTile.GetComponent<Tile>();
-		tileMaker.flipTile(t);
+		copObject = createObject(prefabs.cop); copObject.name = "player";
+		copScript = copObject.GetComponent<Cop>();
+		//copScript.x = 0; copScript.z=0; 
 	}
 
 	/// Update is called every frame, if the MonoBehaviour is enabled.
 	void Update(){
+		int direction = -1;
 		// check for key presses
-			// get current tile
-			// check if direction is open
-				// move cop
-				// check new tile
-				// check if blank
-					// flip tile
+		if (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)){ direction=0; } 
+		else if (Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)){ direction=1; } 
+		else if (Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)){ direction=2; } 
+		else if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)){ direction=3; } 
+		if (direction!=-1){
+			if (copScript.hasAP()){
+				//currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
+				if (currentTileScript.openings[direction]){
+					copScript.move(direction);
+					camera.transform.position = copObject.transform.position + new Vector3(0,5,0); 
+					currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
+					currentTileObject = currentTileScript.gameObject;
+					if (currentTileScript.type == "blank"){
+						currentTileScript = tileMaker.flipTile(currentTileScript);
+						currentTileObject = currentTileScript.gameObject;
+					}
+				}
+			}
+		}
 	}
 
 }

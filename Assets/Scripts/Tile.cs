@@ -34,7 +34,7 @@ public class Tile : MonoBehaviour {
 	public void setLocation(int x, int z){
 		this.x = x;
 		this.z = z;
-		transform.Translate(x, 0, z, Space.World);
+		transform.position = new Vector3(x,0,z);
 	}
 
 }
