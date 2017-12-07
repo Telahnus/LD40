@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 	// PROPERTIES
 	public GameObject copObject;
     public GameObject currentTileObject;
-	public GameObject camera;
+	public Camera mainCamera;
 
 	private Cop copScript;
 	private Tile currentTileScript;
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour {
 	/// any of the Update methods is called the first time.
 	void Start(){
     	tileMaker = this.GetComponent<TileMaker>();
+		mainCamera = Camera.main;
 
         currentTileObject = tileMaker.createTile(); currentTileObject.name = "currentTile";
 		currentTileScript = currentTileObject.GetComponent<Tile>();
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour {
 				//currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
 				if (currentTileScript.openings[direction]){
 					copScript.move(direction);
-					camera.transform.position = copObject.transform.position + new Vector3(0,5,0); 
+					mainCamera.transform.position = copObject.transform.position + new Vector3(0,5,0); 
 					currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
 					currentTileObject = currentTileScript.gameObject;
 					if (currentTileScript.type == "blank"){

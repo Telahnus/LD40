@@ -6,7 +6,7 @@ public class Cop : MonoBehaviour {
 
 	public int x = 0;
 	public int z = 0;
-	public int AP = 100;
+	public int AP = 4;
 
 	public bool hasAP(){
 		return (this.AP>0);
@@ -24,6 +24,7 @@ public class Cop : MonoBehaviour {
 		else if (direction==2){this.z--;}
 		else if (direction==3){this.x--;}
 		transform.position = new Vector3(this.x, 0.5f, this.z);
+		this.AP--;
 	}
 
 	// Use this for initialization
