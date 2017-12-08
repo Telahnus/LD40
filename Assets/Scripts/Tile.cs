@@ -9,6 +9,8 @@ public class Tile : MonoBehaviour {
 	public string type;
 	public Tile[] neighbours; // NESW
 	public bool[] openings;
+	public int income;
+	public int safety;
 
 	// CONSTRUCTOR
 	public void constructor(int x, int z, int id, string type){
@@ -17,6 +19,15 @@ public class Tile : MonoBehaviour {
 		this.type = type;
 		this.neighbours = new Tile[4];
 		this.openings = new bool[4]{false, false, false, false};
+		this.income = Random.Range(1, 4);
+		initSafety();
+	}
+
+	public void initSafety(){
+		float val = Random.value;
+		if (val<.6) this.safety = 1;
+		else if (val<.9) this.safety = 2;
+		else if (val<1) this.safety = 3;
 	}
 
 	public void addNeighbour(Tile tile, bool isOpen, int direction){

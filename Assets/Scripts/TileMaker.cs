@@ -5,8 +5,9 @@ using UnityEngine;
 public class TileMaker : MonoBehaviour {
 
 	public GameObject tileFolder;
+    //public GUIManager GUIManager;
 	public int tileCount = 0;
-    private List<Tile> graph = new List<Tile>();
+    public List<Tile> graph = new List<Tile>();
 
     [System.Serializable]
     public class Prefabs{
@@ -18,6 +19,10 @@ public class TileMaker : MonoBehaviour {
         public GameObject deadend;
     }
     public Prefabs prefabs = new Prefabs();
+
+    /* void Start(){
+        GUIManager = this.GetComponent<GUIManager>();
+    } */
 
     // used to create new tiles, should ALWAYS be
 	public GameObject createTile(){
@@ -53,6 +58,8 @@ public class TileMaker : MonoBehaviour {
         newTileScript.constructor(oldInfo.x, oldInfo.z, oldInfo.id, type);
         newTileScript.copyNeighbours(oldInfo);
         graph.Add(newTileScript);
+
+        //GUIManager.updateText();
 
         return newTileScript;
 

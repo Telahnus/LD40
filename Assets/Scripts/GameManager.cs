@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
 	private List<Tile> graph;
 	public int tileCount = 0;
 	private TileMaker tileMaker;
+	private GUIManager guiManager;
 	
 	// PREFABS
 	[System.Serializable]
@@ -40,6 +41,8 @@ public class GameManager : MonoBehaviour {
 	/// any of the Update methods is called the first time.
 	void Start(){
     	tileMaker = this.GetComponent<TileMaker>();
+		guiManager = this.GetComponent<GUIManager>();
+
 		mainCamera = Camera.main;
 
         currentTileObject = tileMaker.createTile(); currentTileObject.name = "currentTile";
@@ -50,6 +53,9 @@ public class GameManager : MonoBehaviour {
 
 		copObject = createObject(prefabs.cop); copObject.name = "player";
 		copScript = copObject.GetComponent<Cop>();
+
+		//print(guiManager);
+		guiManager.updateText();
 		//copScript.x = 0; copScript.z=0; 
 	}
 
@@ -72,6 +78,7 @@ public class GameManager : MonoBehaviour {
 					if (currentTileScript.type == "blank"){
 						currentTileScript = tileMaker.flipTile(currentTileScript);
 						currentTileObject = currentTileScript.gameObject;
+						guiManager.updateText();
 					}
 				}
 			}
