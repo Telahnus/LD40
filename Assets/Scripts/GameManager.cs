@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,12 +10,14 @@ public class GameManager : MonoBehaviour {
     public GameObject currentTileObject;
 	public Camera mainCamera;
 
-	private Cop copScript;
+	public Cop copScript;
 	private Tile currentTileScript;
 	private List<Tile> graph;
 	public int tileCount = 0;
 	private TileMaker tileMaker;
 	private GUIManager guiManager;
+	bool endConfirmed = false;
+	public Text endTurnText;
 	
 	// PREFABS
 	[System.Serializable]
@@ -51,11 +54,13 @@ public class GameManager : MonoBehaviour {
 		currentTileScript = tileMaker.flipTile(currentTileScript);
 		currentTileObject = currentTileScript.gameObject;
 
-		copObject = createObject(prefabs.cop); copObject.name = "player";
+		copObject = createObject(prefabs.cop); copObject.name = "cop";
 		copScript = copObject.GetComponent<Cop>();
 
+		endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
+
 		//print(guiManager);
-		guiManager.updateText();
+		guiManager.updateStatsInfo();
 		//copScript.x = 0; copScript.z=0; 
 	}
 
@@ -72,17 +77,40 @@ public class GameManager : MonoBehaviour {
 				//currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
 				if (currentTileScript.openings[direction]){
 					copScript.move(direction);
+					if (endConfirmed){
+						endConfirmed = false;
+						endTurnText.text = "End Turn";
+					}
+					guiManager.updateCopInfo();
 					mainCamera.transform.position = copObject.transform.position + new Vector3(0,5,0); 
 					currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
 					currentTileObject = currentTileScript.gameObject;
 					if (currentTileScript.type == "blank"){
 						currentTileScript = tileMaker.flipTile(currentTileScript);
 						currentTileObject = currentTileScript.gameObject;
-						guiManager.updateText();
+						guiManager.updateStatsInfo();
 					}
 				}
 			}
 		}
+		// had issues with double clicks when the keycode was 'enter' after having highlighted the button with a click first
+		if (Input.GetKeyDown(KeyCode.E)){
+			endTurn();
+		}
+	}
+
+	public void endTurn(){
+		//print("PRE - - AP="+copScript.AP+", endconfirmed=" + endConfirmed);
+		if (copScript.AP>0 && !endConfirmed){
+			endTurnText.text = "Are you sure?";
+			endConfirmed = true;
+		} else {
+			endConfirmed = false;
+			endTurnText.text = "End Turn";
+			copScript.AP = 4;
+			guiManager.updateCopInfo();
+		}
+		//print("POST - - AP="+copScript.AP+", endconfirmed=" + endConfirmed);	
 	}
 
 }

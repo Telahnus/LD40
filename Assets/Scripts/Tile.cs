@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour {
 		this.type = type;
 		this.neighbours = new Tile[4];
 		this.openings = new bool[4]{false, false, false, false};
-		this.income = Random.Range(1, 4);
+		initIncome();
 		initSafety();
 	}
 
@@ -28,6 +28,13 @@ public class Tile : MonoBehaviour {
 		if (val<.6) this.safety = 1;
 		else if (val<.9) this.safety = 2;
 		else if (val<1) this.safety = 3;
+	}
+
+	public void initIncome(){
+		float val = Random.value;
+		if (val<.6) this.income = 1;
+		else if (val<.9) this.income = 2;
+		else if (val<1) this.income = 3;
 	}
 
 	public void addNeighbour(Tile tile, bool isOpen, int direction){
