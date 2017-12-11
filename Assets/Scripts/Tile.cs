@@ -11,6 +11,8 @@ public class Tile : MonoBehaviour {
 	public bool[] openings;
 	public int income;
 	public int safety;
+	public float danger;
+	public bool hasCriminal = false;
 
 	// CONSTRUCTOR
 	public void constructor(int x, int z, int id, string type){
@@ -21,6 +23,14 @@ public class Tile : MonoBehaviour {
 		this.openings = new bool[4]{false, false, false, false};
 		initIncome();
 		initSafety();
+		initDanger();
+	}
+
+	public void initDanger(){
+		float val = Random.value;
+		if (val<.9) this.danger = 0.01f;
+		else if (val<.97) this.danger = 0.05f;
+		else if (val<1)this.danger = 0.10f;
 	}
 
 	public void initSafety(){

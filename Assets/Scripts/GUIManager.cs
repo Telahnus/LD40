@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour {
 
-    private GameManager GM;
-    private TileMaker TM;
+    //private GameManager GM;
+    //private TileMaker TM;
 
 	public Text statsInfo;
 	public Text tileInfo;
@@ -15,8 +15,8 @@ public class GUIManager : MonoBehaviour {
     public Text endTurnText;
 
 	void Awake () {
-        GM = this.GetComponent<GameManager>();
-        TM = this.GetComponent<TileMaker>();
+        //GM = this.GetComponent<GameManager>();
+        //TM = this.GetComponent<TileMaker>();
 
         statsInfo = GameObject.Find("StatsInfo").GetComponent<Text>();
         statsInfo.text = "Network Size:\nIncome:\nPublic Safety:\nCrime Rate:";
@@ -27,23 +27,23 @@ public class GUIManager : MonoBehaviour {
         endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
     }
 
-    public void updateStatsInfo(){
+    public void updateStatsInfo(List<Tile> graph, int criminalCount){
         int income = 0;
         int size = 0;
         int safety = 0;
-        int crime = 0;
-        foreach (Tile t in TM.graph){
+        //int crime = criminalCount;
+        foreach (Tile t in graph){
             if (t.type != "blank") {
                 size++;
                 income += t.income;
                 safety += t.safety;
             }
         }
-        statsInfo.text = "Network Size: "+size+"\nIncome: "+income+"\nPublic Safety:"+safety+"\nCrime Rate: "+crime;
+        statsInfo.text = "Network Size: "+size+"\nIncome: "+income+"\nPublic Safety:"+safety+"\nCrime Rate: "+criminalCount;
     }
 
-    public void updateCopInfo(){
-        int AP = GM.copScript.AP;
+    public void updateCopInfo(int AP){
+        //int AP = GM.copScript.AP;
         copInfo.text = "Actions:";
         for (int i = 0; i < AP; i++) { copInfo.text += " *"; }
     }

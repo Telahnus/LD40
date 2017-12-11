@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 	private GUIManager guiManager;
 	bool endConfirmed = false;
 	public Text endTurnText;
+	private CriminalManager criminalManager;
 	
 	// PREFABS
 	[System.Serializable]
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour {
 	void Start(){
     	tileMaker = this.GetComponent<TileMaker>();
 		guiManager = this.GetComponent<GUIManager>();
+		criminalManager = this.GetComponent<CriminalManager>();
 
 		mainCamera = Camera.main;
 
@@ -56,61 +58,63 @@ public class GameManager : MonoBehaviour {
 
 		copObject = createObject(prefabs.cop); copObject.name = "cop";
 		copScript = copObject.GetComponent<Cop>();
+		copScript.setLocation(0,0);
 
 		endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
 
 		//print(guiManager);
-		guiManager.updateStatsInfo();
+		guiManager.updateStatsInfo(tileMaker.graph, 0);
 		//copScript.x = 0; copScript.z=0; 
 	}
 
 	/// Update is called every frame, if the MonoBehaviour is enabled.
 	void Update(){
-		int direction = -1;
-		// check for key presses
-		if (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)){ direction=0; } 
-		else if (Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)){ direction=1; } 
-		else if (Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)){ direction=2; } 
-		else if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)){ direction=3; } 
-		if (direction!=-1){
-			if (copScript.hasAP()){
-				//currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
-				if (currentTileScript.openings[direction]){
-					copScript.move(direction);
-					if (endConfirmed){
-						endConfirmed = false;
-						endTurnText.text = "End Turn";
-					}
-					guiManager.updateCopInfo();
-					mainCamera.transform.position = copObject.transform.position + new Vector3(0,5,0); 
-					currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
+		// check for movement key presses
+		if (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)){ moveCommand(0); } 
+		else if (Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)){ moveCommand(1); } 
+		else if (Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)){ moveCommand(2); } 
+		else if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)){ moveCommand(3); } 
+		// had issues with double clicks when the keycode was 'enter' after having highlighted the button with a click first
+		if (Input.GetKeyDown(KeyCode.E)){ endTurn(); }
+	}
+
+	public void moveCommand(int direction){
+		if (copScript.hasAP()){
+			//currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
+			if (currentTileScript.openings[direction]){
+				copScript.move(direction);
+				if (endConfirmed){
+					endConfirmed = false;
+					endTurnText.text = "End Turn";
+				}
+				guiManager.updateCopInfo(copScript.AP);
+				mainCamera.transform.position = copObject.transform.position + new Vector3(0,5,0); 
+				currentTileScript = tileMaker.findTileAtLocation(copScript.x, copScript.z);
+				currentTileObject = currentTileScript.gameObject;
+				if (currentTileScript.type == "blank"){
+					currentTileScript = tileMaker.flipTile(currentTileScript);
 					currentTileObject = currentTileScript.gameObject;
-					if (currentTileScript.type == "blank"){
-						currentTileScript = tileMaker.flipTile(currentTileScript);
-						currentTileObject = currentTileScript.gameObject;
-						guiManager.updateStatsInfo();
-					}
+					guiManager.updateStatsInfo(tileMaker.graph, criminalManager.criminals.Count);
 				}
 			}
-		}
-		// had issues with double clicks when the keycode was 'enter' after having highlighted the button with a click first
-		if (Input.GetKeyDown(KeyCode.E)){
-			endTurn();
 		}
 	}
 
 	public void endTurn(){
-		//print("PRE - - AP="+copScript.AP+", endconfirmed=" + endConfirmed);
 		if (copScript.AP>0 && !endConfirmed){
 			endTurnText.text = "Are you sure?";
 			endConfirmed = true;
 		} else {
 			endConfirmed = false;
 			endTurnText.text = "End Turn";
-			copScript.AP = 4;
-			guiManager.updateCopInfo();
+			// call spawn criminals
+			criminalManager.spawnCriminals(tileMaker.graph);
+			// call move criminals
+			// check win/loss conditions
+			copScript.AP = copScript.maxAP;
+			guiManager.updateCopInfo(copScript.AP);
+			guiManager.updateStatsInfo(tileMaker.graph, criminalManager.criminals.Count);
 		}
-		//print("POST - - AP="+copScript.AP+", endconfirmed=" + endConfirmed);	
 	}
 
 }

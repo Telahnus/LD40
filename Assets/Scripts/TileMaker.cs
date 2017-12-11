@@ -171,7 +171,7 @@ public class TileMaker : MonoBehaviour {
             else if (i==2) z =-1;
             else if (i==3) x = -1;
             // does tile already exist?
-            Tile neighbourScript = findTile(newTileScript.x+x, newTileScript.z+z);
+            Tile neighbourScript = findTileAtLocation(newTileScript.x+x, newTileScript.z+z);
             if (neighbourScript==null){ // create a blank if null
                 GameObject newObject = createTile();
                 neighbourScript = newObject.GetComponent<Tile>();
@@ -186,7 +186,7 @@ public class TileMaker : MonoBehaviour {
 
     }
 
-    public Tile findTile(int x, int z){
+    public Tile findTileAtLocation(int x, int z){
         foreach (Tile t in graph){
             if (t.x == x && t.z == z) return t;
         }
