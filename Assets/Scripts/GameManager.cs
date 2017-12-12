@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour {
 	private TileMaker tileMaker;
 	private GUIManager guiManager;
 	bool endConfirmed = false;
-	public Text endTurnText;
+	//public Text endTurnText;
+	//private GameObject endTurnButton;
 	private CriminalManager criminalManager;
 	
 	// PREFABS
@@ -60,7 +61,8 @@ public class GameManager : MonoBehaviour {
 		copScript = copObject.GetComponent<Cop>();
 		copScript.setLocation(0,0);
 
-		endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
+		//endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
+		//endTurnButton = GameObject.Find("EndTurnButton");
 
 		//print(guiManager);
 		guiManager.updateStatsInfo(tileMaker.graph, 0);
@@ -83,9 +85,11 @@ public class GameManager : MonoBehaviour {
 			//currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
 			if (currentTileScript.openings[direction]){
 				copScript.move(direction);
-				if (endConfirmed){
-					endConfirmed = false;
-					endTurnText.text = "End Turn";
+				if (endConfirmed){ endConfirmed = false; }
+				if (copScript.AP==0){
+					guiManager.updateEndTurn(true,false);
+				} else { 
+					guiManager.updateEndTurn(false,false);
 				}
 				guiManager.updateCopInfo(copScript.AP);
 				mainCamera.transform.position = copObject.transform.position + new Vector3(0,5,0); 
@@ -102,14 +106,13 @@ public class GameManager : MonoBehaviour {
 
 	public void endTurn(){
 		if (copScript.AP>0 && !endConfirmed){
-			endTurnText.text = "Are you sure?";
+			guiManager.updateEndTurn(true, true);
 			endConfirmed = true;
 		} else {
 			endConfirmed = false;
-			endTurnText.text = "End Turn";
-			// call spawn criminals
+			guiManager.updateEndTurn(false, false);
+			criminalManager.moveCriminals();
 			criminalManager.spawnCriminals(tileMaker.graph);
-			// call move criminals
 			// check win/loss conditions
 			copScript.AP = copScript.maxAP;
 			guiManager.updateCopInfo(copScript.AP);

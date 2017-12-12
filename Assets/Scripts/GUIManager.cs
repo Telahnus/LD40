@@ -9,10 +9,13 @@ public class GUIManager : MonoBehaviour {
     //private GameManager GM;
     //private TileMaker TM;
 
-	public Text statsInfo;
-	public Text tileInfo;
-    public Text copInfo;
-    public Text endTurnText;
+	private Text statsInfo;
+	private Text tileInfo;
+    private Text copInfo;
+    private Text endTurnText;
+    private Button endTurnButton; 
+    public ColorBlock highlightColors;
+    public ColorBlock normalColors;
 
 	void Awake () {
         //GM = this.GetComponent<GameManager>();
@@ -25,6 +28,9 @@ public class GUIManager : MonoBehaviour {
         copInfo = GameObject.Find("CopInfo").GetComponent<Text>();
         copInfo.text = "Actions: * * * *";
         endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
+        endTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
+
+        endTurnButton.colors = normalColors;
     }
 
     public void updateStatsInfo(List<Tile> graph, int criminalCount){
@@ -43,9 +49,23 @@ public class GUIManager : MonoBehaviour {
     }
 
     public void updateCopInfo(int AP){
-        //int AP = GM.copScript.AP;
         copInfo.text = "Actions:";
         for (int i = 0; i < AP; i++) { copInfo.text += " *"; }
+        if (AP==0) updateEndTurn(true, false);
+    }
+
+    public void updateEndTurn(bool highlight, bool askConfirmation){
+        if (askConfirmation) {
+            endTurnText.text = "Are you sure?";
+        } else {
+            endTurnText.text = "End Turn";
+        }
+
+        if (highlight){
+            endTurnButton.colors = highlightColors;
+        } else {
+            endTurnButton.colors = normalColors;
+        }
     }
 	
 }

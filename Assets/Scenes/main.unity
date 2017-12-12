@@ -404,7 +404,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: -20, y: -60}
+  m_SizeDelta: {x: -34, y: -60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &419345922
 MonoBehaviour:
@@ -470,7 +470,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 425588282}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 339, y: 171.5, z: 0}
+  m_LocalPosition: {x: 338.5, y: 171.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 851882451}
@@ -594,7 +594,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 670061100}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -25, z: 0}
+  m_LocalPosition: {x: 0, y: -20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1418090714}
@@ -603,8 +603,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 100, y: 30}
+  m_AnchoredPosition: {x: 0, y: 30}
+  m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &670061102
 MonoBehaviour:
@@ -625,10 +625,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 0.5137255, g: 0.29803923, b: 0.14117648, a: 1}
+    m_HighlightedColor: {r: 0.625, g: 0.38820624, b: 0.21599263, a: 1}
+    m_PressedColor: {r: 0.42647058, g: 0.22676878, b: 0.081531145, a: 1}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -799,7 +799,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 851882450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -339, y: -171.5, z: 0}
+  m_LocalPosition: {x: -338.5, y: -171.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 32444631}
@@ -1228,7 +1228,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1384296386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 189, y: -171.5, z: 0}
+  m_LocalPosition: {x: 188.5, y: -171.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 991094186}
@@ -1320,7 +1320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.12156863, g: 0.07058824, b: 0.03529412, a: 1}
+  m_Color: {r: 1, g: 0.972549, b: 0.8627451, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1330,7 +1330,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 3
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -1561,7 +1561,6 @@ MonoBehaviour:
   mainCamera: {fileID: 2141742011}
   copScript: {fileID: 0}
   tileCount: 0
-  endTurnText: {fileID: 0}
   prefabs:
     cop: {fileID: 1442551690224382, guid: 113672687acdea3499aecf55cf9e1eec, type: 2}
     robber: {fileID: 0}
@@ -1600,10 +1599,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c84d248263961a40b4dbc105657bac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsInfo: {fileID: 0}
-  tileInfo: {fileID: 0}
-  copInfo: {fileID: 0}
-  endTurnText: {fileID: 0}
+  highlightColors:
+    m_NormalColor: {r: 0, g: 0.2, b: 0.4, a: 1}
+    m_HighlightedColor: {r: 0.029411763, g: 0.2647059, b: 0.5, a: 1}
+    m_PressedColor: {r: 0, g: 0.15073529, b: 0.30147058, a: 1}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.503}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  normalColors:
+    m_NormalColor: {r: 0.5137255, g: 0.29803923, b: 0.14117648, a: 1}
+    m_HighlightedColor: {r: 0.61764705, g: 0.3783805, b: 0.20436852, a: 1}
+    m_PressedColor: {r: 0.43382353, g: 0.23806567, b: 0.09569635, a: 1}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
 --- !u!114 &1755815484
 MonoBehaviour:
   m_ObjectHideFlags: 0

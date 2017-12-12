@@ -31,12 +31,31 @@ public class CriminalManager : MonoBehaviour {
 		criminalObject.transform.parent = criminalFolder.transform;
 		Criminal criminalScript = criminalObject.GetComponent<Criminal>();
 		criminals.Add(criminalScript);
+		// initialize criminal
+		if (Random.value>.5){criminalScript.canMove = true;}
 		criminalScript.setLocation(x,z);
 	}
 
 	public void moveCriminals(){
+		TileMaker TM = this.GetComponent<TileMaker>();
 		foreach (Criminal c in criminals){
-			//
+			if (c.canMove){
+				Tile t = TM.findTileAtLocation(c.x,c.z);
+				int offset = Random.Range(0, 4);
+				for (int i=0; i<4; i++){
+					int mod = (offset+i)%4;
+					if (t.openings[mod] && t.neighbours[mod]!=null){
+						Tile n = t.neighbours[mod];
+						if (n.type!="blank" && !n.hasCriminal){
+							c.setLocation(n.x, n.z);
+							n.hasCriminal = true;
+							t.hasCriminal = false;
+							break;
+						}
+					}
+				}
+				
+			}
 		}
 	}
 
