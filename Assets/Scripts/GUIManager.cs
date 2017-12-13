@@ -13,6 +13,7 @@ public class GUIManager : MonoBehaviour {
 	private Text tileInfo;
     private Text copInfo;
     private Text endTurnText;
+    private Text APWarning;
     private Button endTurnButton; 
     public ColorBlock highlightColors;
     public ColorBlock normalColors;
@@ -29,6 +30,8 @@ public class GUIManager : MonoBehaviour {
         copInfo.text = "Actions: * * * *";
         endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
         endTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
+        APWarning = GameObject.Find("APWarning").GetComponent<Text>();
+        APWarning.enabled = false;
 
         endTurnButton.colors = normalColors;
     }
@@ -46,6 +49,10 @@ public class GUIManager : MonoBehaviour {
             }
         }
         statsInfo.text = "Network Size: "+size+"\nIncome: "+income+"\nPublic Safety:"+safety+"\nCrime Rate: "+criminalCount;
+    }
+
+    public void displayAPWarning(bool b){
+        APWarning.enabled = b;
     }
 
     public void updateCopInfo(int AP){
@@ -69,11 +76,9 @@ public class GUIManager : MonoBehaviour {
     }
 	
     public void updateTileInfo(Tile t){
-        tileInfo.text = "Tile Info\nType: "+t.type+"\nIncome: "+t.income+
-                        "\nSafety: "+t.safety+"\nDanger: "+t.danger;
-        if (t.hasCriminal){
-            tileInfo.text+="\n\nCriminal Info\nLevel: "+t.criminal.level;
-        }
+        tileInfo.text = "Tile Info\nType: "+t.type;
+        if (t.type!="blank") tileInfo.text += "\nIncome: "+t.income+"\nSafety: "+t.safety+"\nDanger: "+t.danger;
+        if (t.hasCriminal) tileInfo.text+="\n\nCriminal Info\nLevel: "+t.criminal.level;
     }
 
 }

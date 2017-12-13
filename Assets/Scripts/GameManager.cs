@@ -78,11 +78,38 @@ public class GameManager : MonoBehaviour {
 		else if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)){ moveCommand(3); } 
 		// had issues with double clicks when the keycode was 'enter' 
 			//after having highlighted the button with a click first
-		if (Input.GetKeyDown(KeyCode.E)){ endTurn(); }		
+		if (Input.GetKeyDown(KeyCode.E)){ endTurn(); }
+		if (Input.GetKeyDown(KeyCode.Q)) { doAction(); }
+    }
+
+	// action button is contextual
+	// meaning... gonna be a lot of ifs
+	public void doAction(){
+		if (copScript.hasAP()){
+			guiManager.displayAPWarning(false);
+			if (currentTileScript.hasCriminal){
+				if (copScript.AP >= currentTileScript.criminal.level){
+					copScript.AP -= currentTileScript.criminal.level;
+					criminalManager.captureCriminal(currentTileScript.criminal, currentTileScript);
+					guiManager.updateCopInfo(copScript.AP);
+					callUpdateStats();
+					guiManager.updateTileInfo(currentTileScript);
+				} else {
+					guiManager.displayAPWarning(true);
+				}
+			}
+		} else {
+			guiManager.displayAPWarning(true);
+		}
+	}
+
+	public void callUpdateStats(){
+		guiManager.updateStatsInfo(tileMaker.graph, criminalManager.criminals.Count);
 	}
 
 	public void moveCommand(int direction){
 		if (copScript.hasAP()){
+			guiManager.displayAPWarning(false);
 			//currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
 			if (currentTileScript.openings[direction]){
 				copScript.move(direction);
@@ -93,19 +120,22 @@ public class GameManager : MonoBehaviour {
 					guiManager.updateEndTurn(false,false);
 				}
 				guiManager.updateCopInfo(copScript.AP);
-				mainCamera.transform.position = copObject.transform.position + new Vector3(0,5,0); 
+				mainCamera.transform.position = copObject.transform.position + new Vector3(0,4.5f,0); 
 				currentTileScript = tileMaker.findTileAtLocation(copScript.x, copScript.z);
 				currentTileObject = currentTileScript.gameObject;
 				if (currentTileScript.type == "blank"){
 					currentTileScript = tileMaker.flipTile(currentTileScript);
 					currentTileObject = currentTileScript.gameObject;
-					guiManager.updateStatsInfo(tileMaker.graph, criminalManager.criminals.Count);
+					callUpdateStats();
 				}
 			}
+		} else {
+			guiManager.displayAPWarning(true);
 		}
 	}
 
 	public void endTurn(){
+		guiManager.displayAPWarning(false);
 		if (copScript.AP>0 && !endConfirmed){
 			guiManager.updateEndTurn(true, true);
 			endConfirmed = true;
@@ -117,7 +147,7 @@ public class GameManager : MonoBehaviour {
 			// check win/loss conditions
 			copScript.AP = copScript.maxAP;
 			guiManager.updateCopInfo(copScript.AP);
-			guiManager.updateStatsInfo(tileMaker.graph, criminalManager.criminals.Count);
+			callUpdateStats();
 		}
 	}
 

@@ -62,4 +62,10 @@ public class CriminalManager : MonoBehaviour {
 		}
 	}
 
+	public void captureCriminal(Criminal c, Tile t){
+		t.setCriminal(null);
+		criminals.Remove(c);
+		Destroy(c.gameObject);
+	}
+
 }
