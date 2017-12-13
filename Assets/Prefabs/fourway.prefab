@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23611121364840926}
   m_Layer: 0
   m_Name: border2
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 23211584590906578}
   m_Layer: 0
   m_Name: border2
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 23702976254488652}
   m_Layer: 0
   m_Name: border1
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 23909371687585592}
   m_Layer: 0
   m_Name: border2
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,6 +145,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4864877532401828}
+  - component: {fileID: 65794141410121228}
   m_Layer: 0
   m_Name: fourway
   m_TagString: Untagged
@@ -183,7 +184,7 @@ GameObject:
   - component: {fileID: 23449490009106542}
   m_Layer: 0
   m_Name: border1
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -201,7 +202,7 @@ GameObject:
   - component: {fileID: 23156664090184740}
   m_Layer: 0
   m_Name: border2
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +238,7 @@ GameObject:
   - component: {fileID: 23671979285380832}
   m_Layer: 0
   m_Name: border1
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,7 +256,7 @@ GameObject:
   - component: {fileID: 23867145188068970}
   m_Layer: 0
   m_Name: border1
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1096,6 +1097,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65794141410121228
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352540264013456}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.3, z: 1}
+  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!65 &65818262992847474
 BoxCollider:
   m_ObjectHideFlags: 1

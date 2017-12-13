@@ -24,7 +24,7 @@ public class GUIManager : MonoBehaviour {
         statsInfo = GameObject.Find("StatsInfo").GetComponent<Text>();
         statsInfo.text = "Network Size:\nIncome:\nPublic Safety:\nCrime Rate:";
         tileInfo = GameObject.Find("TileInfo").GetComponent<Text>();
-        tileInfo.text = "Tile Info:";
+        tileInfo.text = "Tile Info";
         copInfo = GameObject.Find("CopInfo").GetComponent<Text>();
         copInfo.text = "Actions: * * * *";
         endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
@@ -68,4 +68,12 @@ public class GUIManager : MonoBehaviour {
         }
     }
 	
+    public void updateTileInfo(Tile t){
+        tileInfo.text = "Tile Info\nType: "+t.type+"\nIncome: "+t.income+
+                        "\nSafety: "+t.safety+"\nDanger: "+t.danger;
+        if (t.hasCriminal){
+            tileInfo.text+="\n\nCriminal Info\nLevel: "+t.criminal.level;
+        }
+    }
+
 }

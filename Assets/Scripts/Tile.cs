@@ -13,6 +13,12 @@ public class Tile : MonoBehaviour {
 	public int safety;
 	public float danger;
 	public bool hasCriminal = false;
+	public Criminal criminal;
+	private GUIManager GM;
+
+	void Start(){
+		GM = GameObject.Find("GameManager").GetComponent<GUIManager>();
+	}
 
 	// CONSTRUCTOR
 	public void constructor(int x, int z, int id, string type){
@@ -65,4 +71,39 @@ public class Tile : MonoBehaviour {
 		transform.position = new Vector3(x,0,z);
 	}
 
+	public void setCriminal(Criminal c){
+		this.criminal = c;
+		this.hasCriminal = c!=null;
+	}
+
+	void OnMouseDown(){
+		GM.updateTileInfo(this);
+	}
+
+	void OnMouseEnter(){
+		foreach (Renderer r in GetComponentsInChildren<Renderer>()){
+			if (r.tag == "Border"){
+				Color newColor = new Color();
+				newColor = r.material.color;
+				newColor.r += 0.2f;
+				newColor.g += 0.2f;
+				newColor.b += 0.2f;
+				r.material.color = newColor;
+			}
+        }
+	}
+
+	void OnMouseExit(){
+        foreach (Renderer r in GetComponentsInChildren<Renderer>()){
+			if (r.tag == "Border"){
+				Color newColor = new Color();
+				newColor = r.material.color;
+				newColor.r -= 0.2f;
+				newColor.g -= 0.2f;
+				newColor.b -= 0.2f;
+				r.material.color = newColor;
+			}
+        }
+    }
+	
 }

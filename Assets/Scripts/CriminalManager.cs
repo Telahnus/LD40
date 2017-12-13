@@ -19,21 +19,24 @@ public class CriminalManager : MonoBehaviour {
 				float spawnRate = t.danger;
 				float val = Random.value;
 				if (val<spawnRate){
-					createCriminal(t.x, t.z);
-					t.hasCriminal = true;
+					t.setCriminal(createCriminal(t.x, t.z));
 				}
 			}
 		}
 	}
 
-	public void createCriminal(int x, int z){
+	public Criminal createCriminal(int x, int z){
 		GameObject criminalObject = Instantiate(prefabs.criminal);
 		criminalObject.transform.parent = criminalFolder.transform;
 		Criminal criminalScript = criminalObject.GetComponent<Criminal>();
 		criminals.Add(criminalScript);
 		// initialize criminal
-		if (Random.value>.5){criminalScript.canMove = true;}
+		if (Random.value>.5){
+			criminalScript.level = 2;
+			criminalScript.canMove = true;
+		}
 		criminalScript.setLocation(x,z);
+		return criminalScript;
 	}
 
 	public void moveCriminals(){
@@ -48,8 +51,8 @@ public class CriminalManager : MonoBehaviour {
 						Tile n = t.neighbours[mod];
 						if (n.type!="blank" && !n.hasCriminal){
 							c.setLocation(n.x, n.z);
-							n.hasCriminal = true;
-							t.hasCriminal = false;
+							n.setCriminal(c);
+							t.setCriminal(null);
 							break;
 						}
 					}

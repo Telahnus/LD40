@@ -76,8 +76,9 @@ public class GameManager : MonoBehaviour {
 		else if (Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)){ moveCommand(1); } 
 		else if (Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)){ moveCommand(2); } 
 		else if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)){ moveCommand(3); } 
-		// had issues with double clicks when the keycode was 'enter' after having highlighted the button with a click first
-		if (Input.GetKeyDown(KeyCode.E)){ endTurn(); }
+		// had issues with double clicks when the keycode was 'enter' 
+			//after having highlighted the button with a click first
+		if (Input.GetKeyDown(KeyCode.E)){ endTurn(); }		
 	}
 
 	public void moveCommand(int direction){

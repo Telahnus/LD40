@@ -12,13 +12,6 @@ public class Criminal : MonoBehaviour {
 	public bool canMove = false;
 	public int level = 1;
 
-	public void initialize(){
-		if (Random.value>.5){
-			this.level = 2;
-			this.canMove = true;
-		}
-	}
-
 	public void setLocation(int x, int z){
 		this.x = x;
 		this.z = z;
