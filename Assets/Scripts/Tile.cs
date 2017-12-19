@@ -16,53 +16,28 @@ public class Tile : MonoBehaviour {
 	public Criminal criminal;
 	private GUIManager GM;
 
-	void Start(){
+	void Awake(){
 		GM = GameObject.Find("GameManager").GetComponent<GUIManager>();
+		this.neighbours = new Tile[4];
+        this.openings = new bool[4] { false, false, false, false };
 	}
 
 	// CONSTRUCTOR
-	public void constructor(int x, int z, int id, string type){
+	// all the info should be generated from the TileMaker and sent in
+		// trying to seperate responsibilities
+	public void constructor(int x, int z, int id, string type, int income, int safety, float danger){
 		setLocation(x, z);
 		this.id = id;
 		this.type = type;
-		this.neighbours = new Tile[4];
-		this.openings = new bool[4]{false, false, false, false};
-		initIncome();
-		initSafety();
-		initDanger();
-	}
 
-	public void initDanger(){
-		float val = Random.value;
-		if (val<.9) this.danger = 0.01f;
-		else if (val<.97) this.danger = 0.05f;
-		else if (val<1)this.danger = 0.10f;
-	}
-
-	public void initSafety(){
-		float val = Random.value;
-		if (val<.6) this.safety = 1;
-		else if (val<.9) this.safety = 2;
-		else if (val<1) this.safety = 3;
-	}
-
-	public void initIncome(){
-		float val = Random.value;
-		if (val<.6) this.income = 1;
-		else if (val<.9) this.income = 2;
-		else if (val<1) this.income = 3;
+		this.income = income;
+		this.safety = safety;
+		this.danger = danger;
 	}
 
 	public void addNeighbour(Tile tile, bool isOpen, int direction){
 		this.neighbours[direction] = tile;
 		this.openings[direction] = isOpen;
-	}
-
-	public void copyNeighbours(Tile other){
-		for (int i=0; i<4; i++){
-			this.neighbours[i]=other.neighbours[i];
-			this.openings[i] = other.openings[i];
-		}
 	}
 
 	public void setLocation(int x, int z){

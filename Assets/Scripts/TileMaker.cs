@@ -5,7 +5,6 @@ using UnityEngine;
 public class TileMaker : MonoBehaviour {
 
 	public GameObject tileFolder;
-    //public GUIManager GUIManager;
 	public int tileCount = 0;
     public List<Tile> graph = new List<Tile>();
 
@@ -20,28 +19,57 @@ public class TileMaker : MonoBehaviour {
     }
     public Prefabs prefabs = new Prefabs();
 
-    /* void Start(){
-        GUIManager = this.GetComponent<GUIManager>();
-    } */
+    private DiscreteDistribution dangerSet;
+    private DiscreteDistribution incomeSet;
+    private DiscreteDistribution safetySet;
 
-    // used to create new tiles, should ALWAYS be
+    public void Awake()
+    {
+        initDistributions();
+    }
+
+    public void initDistributions()
+    {
+        dangerSet = new DiscreteDistribution();
+        dangerSet.add(0.00f, 0.90f, 0.01f);
+        dangerSet.add(0.90f, 0.97f, 0.02f);
+        dangerSet.add(0.97f, 1.00f, 0.03f);
+
+        incomeSet = new DiscreteDistribution();
+        incomeSet.add(0.00f, 0.60f, 1);
+        incomeSet.add(0.60f, 0.90f, 2);
+        incomeSet.add(0.90f, 1.00f, 3);
+
+        safetySet = new DiscreteDistribution();
+        safetySet.add(0.00f, 0.60f, 1);
+        safetySet.add(0.60f, 0.90f, 2);
+        safetySet.add(0.90f, 1.00f, 3);
+    }
+    
+    
+    // used to create new blank tiles
 	public GameObject createTile(){
+        // create gameObject
         GameObject tileObject = Instantiate(prefabs.blank);
         tileObject.transform.Rotate(0, Random.Range(0, 4) * 90, 0);
         tileObject.transform.parent = this.tileFolder.transform;
-
-        // put tile declarations here
+        // attach script component
 		Tile tileScript = tileObject.AddComponent<Tile>();
         graph.Add(tileScript);
-        tileScript.constructor(0, 0, tileCount++, "blank");
+        
+        int income = (int)incomeSet.getRandomValue();
+        int safety = (int)safetySet.getRandomValue();
+        float danger = (float)dangerSet.getRandomValue();
+
+        tileScript.constructor(0, 0, tileCount++, "blank", income, safety, danger);
 
         return tileObject;
     }
 
-    public Tile changeTilePrefab(string type, Tile oldInfo)
-    {   
+    // creates a new tile, and copies all the old info to the new tile
+    public Tile changeTilePrefab(string type, Tile oldInfo){  
+         
         GameObject newTileObject;
-        
         switch(type)
         {
             case "fourway" : newTileObject = Instantiate(prefabs.fourway); break;
@@ -49,20 +77,31 @@ public class TileMaker : MonoBehaviour {
             case "straight" : newTileObject = Instantiate(prefabs.straight); break;
             case "corner" : newTileObject = Instantiate(prefabs.corner); break;
             case "deadend" : newTileObject = Instantiate(prefabs.deadend); break;
-            default: return null;
+            default: return null; // should error handle
         }
-
         newTileObject.transform.parent = this.tileFolder.transform;
 
+        // initialize script component
         Tile newTileScript = newTileObject.AddComponent<Tile>();
-        newTileScript.constructor(oldInfo.x, oldInfo.z, oldInfo.id, type);
-        newTileScript.copyNeighbours(oldInfo);
+        newTileScript.type = type;
+        copyTileInfo(oldInfo, newTileScript);
+
         graph.Add(newTileScript);
-
         //GUIManager.updateText();
-
         return newTileScript;
+    }
 
+    public void copyTileInfo (Tile oldTile, Tile newTile){
+        newTile.setLocation(oldTile.x, oldTile.z);
+        newTile.id = oldTile.id;
+        newTile.danger = oldTile.danger;
+        newTile.safety = oldTile.safety;
+        newTile.income = oldTile.income;
+        for (int i = 0; i < 4; i++){
+            newTile.neighbours[i] = oldTile.neighbours[i];
+            newTile.openings[i] = oldTile.openings[i];
+        }
+        
     }
 
     // flip a blank tile into a road tile according to a whole bunch of rules

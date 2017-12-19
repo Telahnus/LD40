@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Q)) { doAction(); }
     }
 
-	// action button is contextual
+	// action button (Q) is contextual
 	// meaning... gonna be a lot of ifs
 	public void doAction(){
 		if (copScript.hasAP()){
