@@ -17,6 +17,9 @@ public class UpgradeManager : MonoBehaviour {
 
 	private Cop cop;
 
+	public GameObject outpostPrefab;
+	public GameObject dynamic_folder;
+
 	//public int tier = 0;
 	//public int next = 10;
 	//public int trainingCount = 0;
@@ -57,6 +60,10 @@ public class UpgradeManager : MonoBehaviour {
 			}
             statsManager.expense += 5;
             guiManager.displayStats(statsManager);
+
+			GameObject outpostObject = Instantiate(outpostPrefab);
+			outpostObject.transform.parent = dynamic_folder.transform;
+			outpostObject.transform.position = new Vector3(t.x, 0, t.z);
         }
 	}
 

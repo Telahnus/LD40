@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour {
         upgradeManager.statsManager = statsManager;
 		upgradeManager.guiManager = guiManager;
 		upgradeManager.gameManager = this;
+		upgradeManager.dynamic_folder = this.refs.dynamic_folder;
 
         mainCamera = Camera.main;
 	}
