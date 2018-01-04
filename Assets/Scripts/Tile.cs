@@ -13,6 +13,9 @@ public class Tile : MonoBehaviour {
 	public int safety;
 	public float danger;
 	public bool hasCriminal = false;
+	public bool hasOutpost = false;
+	public bool isWatched = false;
+
 	public Criminal criminal;
 	private GUIManager GM;
 

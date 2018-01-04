@@ -6,6 +6,7 @@ public class CriminalManager : MonoBehaviour {
 
 	public GameObject criminalFolder;
 	public List<Criminal> criminals = new List<Criminal>();
+	public StatsManager statsManager;
 
 	[System.Serializable]
     public class Prefabs{
@@ -17,6 +18,7 @@ public class CriminalManager : MonoBehaviour {
 		foreach (Tile t in graph){
 			if (t.type!="blank" && !t.hasCriminal){
 				float spawnRate = t.danger;
+				if (t.isWatched) spawnRate *= 0.7f;
 				float val = Random.value;
 				if (val<spawnRate){
 					t.setCriminal(createCriminal(t.x, t.z));
@@ -36,6 +38,7 @@ public class CriminalManager : MonoBehaviour {
 			criminalScript.canMove = true;
 		}
 		criminalScript.setLocation(x,z);
+		statsManager.crime++;
 		return criminalScript;
 	}
 
@@ -66,6 +69,7 @@ public class CriminalManager : MonoBehaviour {
 		t.setCriminal(null);
 		criminals.Remove(c);
 		Destroy(c.gameObject);
+		statsManager.crime--;
 	}
 
 }

@@ -10,17 +10,15 @@ public class GameManager : MonoBehaviour {
     public GameObject currentTileObject;
 	public Camera mainCamera;
 
-	public Cop copScript;
+	private Cop copScript;
 	private Tile currentTileScript;
-	private List<Tile> graph;
-	public int tileCount = 0;
 	private TileMaker tileMaker;
 	private GUIManager guiManager;
+	private UpgradeManager upgradeManager;
 	bool endConfirmed = false;
-	//public Text endTurnText;
-	//private GameObject endTurnButton;
 	private CriminalManager criminalManager;
-	
+	private StatsManager statsManager;
+
 	// PREFABS
 	[System.Serializable]
 	public class Prefabs {
@@ -42,18 +40,30 @@ public class GameManager : MonoBehaviour {
 		return newObject;
 	}
 
+
+	/// Awake is called when the script instance is being loaded.
+	void Awake(){
+		tileMaker = this.GetComponent<TileMaker>();
+        guiManager = this.GetComponent<GUIManager>();
+        criminalManager = this.GetComponent<CriminalManager>();
+        upgradeManager = this.GetComponent<UpgradeManager>();
+        statsManager = this.GetComponent<StatsManager>();
+
+        tileMaker.statsManager = statsManager;
+        guiManager.statsManager = statsManager;
+        criminalManager.statsManager = statsManager;
+        upgradeManager.statsManager = statsManager;
+		upgradeManager.guiManager = guiManager;
+		upgradeManager.gameManager = this;
+
+        mainCamera = Camera.main;
+	}
+
 	/// Start is called on the frame when a script is enabled just before
 	/// any of the Update methods is called the first time.
 	void Start(){
-    	tileMaker = this.GetComponent<TileMaker>();
-		guiManager = this.GetComponent<GUIManager>();
-		criminalManager = this.GetComponent<CriminalManager>();
-
-		mainCamera = Camera.main;
-
         currentTileObject = tileMaker.createTile(); currentTileObject.name = "currentTile";
 		currentTileScript = currentTileObject.GetComponent<Tile>();
-		
 		currentTileScript = tileMaker.flipTile(currentTileScript);
 		currentTileObject = currentTileScript.gameObject;
 
@@ -61,12 +71,13 @@ public class GameManager : MonoBehaviour {
 		copScript = copObject.GetComponent<Cop>();
 		copScript.setLocation(0,0);
 
-		//endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
-		//endTurnButton = GameObject.Find("EndTurnButton");
+		statsManager.updateTileStats(tileMaker.graph);
+		statsManager.calcTier();
+		guiManager.displayStats(statsManager);
 
-		//print(guiManager);
-		guiManager.updateStatsInfo(tileMaker.graph, 0);
-		//copScript.x = 0; copScript.z=0; 
+		upgradeManager.setCop(copScript);
+
+		//print(mainCamera.aspect);
 	}
 
 	/// Update is called every frame, if the MonoBehaviour is enabled.
@@ -92,19 +103,16 @@ public class GameManager : MonoBehaviour {
 					copScript.AP -= currentTileScript.criminal.level;
 					criminalManager.captureCriminal(currentTileScript.criminal, currentTileScript);
 					guiManager.updateCopInfo(copScript.AP);
-					callUpdateStats();
 					guiManager.updateTileInfo(currentTileScript);
-				} else {
+					statsManager.updateTileStats(tileMaker.graph);
+                    guiManager.displayStats(statsManager);
+				} else { // not enuf AP to capture criminal
 					guiManager.displayAPWarning(true);
 				}
 			}
-		} else {
+		} else { // not enuf AP to do any actions
 			guiManager.displayAPWarning(true);
 		}
-	}
-
-	public void callUpdateStats(){
-		guiManager.updateStatsInfo(tileMaker.graph, criminalManager.criminals.Count);
 	}
 
 	public void moveCommand(int direction){
@@ -126,7 +134,7 @@ public class GameManager : MonoBehaviour {
 				if (currentTileScript.type == "blank"){
 					currentTileScript = tileMaker.flipTile(currentTileScript);
 					currentTileObject = currentTileScript.gameObject;
-					callUpdateStats();
+					guiManager.displayStats(statsManager);
 				}
 			}
 		} else {
@@ -147,8 +155,15 @@ public class GameManager : MonoBehaviour {
 			// check win/loss conditions
 			copScript.AP = copScript.maxAP;
 			guiManager.updateCopInfo(copScript.AP);
-			callUpdateStats();
+
+			statsManager.updateTileStats(tileMaker.graph);
+			guiManager.displayStats(statsManager);
+			statsManager.turn++;
 		}
+	}
+
+	public void requestOutpost(){
+		upgradeManager.buildOutpost(currentTileScript, tileMaker);
 	}
 
 }

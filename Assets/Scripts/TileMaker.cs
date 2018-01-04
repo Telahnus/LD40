@@ -7,6 +7,7 @@ public class TileMaker : MonoBehaviour {
 	public GameObject tileFolder;
 	public int tileCount = 0;
     public List<Tile> graph = new List<Tile>();
+    public StatsManager statsManager;
 
     [System.Serializable]
     public class Prefabs{
@@ -23,23 +24,23 @@ public class TileMaker : MonoBehaviour {
     private DiscreteDistribution incomeSet;
     private DiscreteDistribution safetySet;
 
-    public void Awake()
-    {
+    public void Awake(){
         initDistributions();
     }
 
     public void initDistributions()
     {
+        // danger - chance of criminal spawning
         dangerSet = new DiscreteDistribution();
         dangerSet.add(0.00f, 0.90f, 0.01f);
         dangerSet.add(0.90f, 0.97f, 0.02f);
         dangerSet.add(0.97f, 1.00f, 0.03f);
-
+        // income - gold per turn
         incomeSet = new DiscreteDistribution();
         incomeSet.add(0.00f, 0.60f, 1);
         incomeSet.add(0.60f, 0.90f, 2);
         incomeSet.add(0.90f, 1.00f, 3);
-
+        // safety - ???
         safetySet = new DiscreteDistribution();
         safetySet.add(0.00f, 0.60f, 1);
         safetySet.add(0.60f, 0.90f, 2);
@@ -62,6 +63,7 @@ public class TileMaker : MonoBehaviour {
         float danger = (float)dangerSet.getRandomValue();
 
         tileScript.constructor(0, 0, tileCount++, "blank", income, safety, danger);
+        statsManager.tileCount++;
 
         return tileObject;
     }
@@ -85,12 +87,26 @@ public class TileMaker : MonoBehaviour {
         Tile newTileScript = newTileObject.AddComponent<Tile>();
         newTileScript.type = type;
         copyTileInfo(oldInfo, newTileScript);
+        checkWatchStatus(newTileScript);
 
         graph.Add(newTileScript);
-        //GUIManager.updateText();
+        statsManager.addTile(newTileScript);
         return newTileScript;
     }
 
+    public void checkWatchStatus(Tile t){
+        for (int i = -1; i <= 1; i++){
+            for (int j = -1; j <= 1; j++){
+                Tile s = findTileAtLocation(t.x + i, t.z + j);
+                if (s != null && s.hasOutpost){
+                    t.isWatched = true;
+                    return;
+                }
+            }
+        }
+    }
+
+    // TODO: dont forget to update as Tile changes
     public void copyTileInfo (Tile oldTile, Tile newTile){
         newTile.setLocation(oldTile.x, oldTile.z);
         newTile.id = oldTile.id;
