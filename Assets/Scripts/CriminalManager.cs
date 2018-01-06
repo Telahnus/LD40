@@ -14,6 +14,13 @@ public class CriminalManager : MonoBehaviour {
     }
     public Prefabs prefabs = new Prefabs();
 
+	public void clearAll(){
+        foreach (Transform child in criminalFolder.transform){
+            Destroy(child.gameObject);
+        }
+        criminals.Clear();
+    }
+
 	public void spawnCriminals(List<Tile> graph){
 		foreach (Tile t in graph){
 			if (t.type!="blank" && !t.hasCriminal){

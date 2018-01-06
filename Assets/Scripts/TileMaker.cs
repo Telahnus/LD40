@@ -24,6 +24,14 @@ public class TileMaker : MonoBehaviour {
     private DiscreteDistribution incomeSet;
     private DiscreteDistribution safetySet;
 
+    public void clearAll(){
+        foreach (Transform child in tileFolder.transform){
+            Destroy(child.gameObject);
+        }
+        graph.Clear();
+        tileCount = 0;
+    }
+
     public void Awake(){
         initDistributions();
     }

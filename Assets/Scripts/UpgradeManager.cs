@@ -9,11 +9,16 @@ public class UpgradeManager : MonoBehaviour {
 	public GUIManager guiManager;
 	public GameManager gameManager;
 
-	public Button outpostBtn;
-	public Button trainingBtn;
-	public Button equipmentBtn;
-	public Button chopperBtn;
-	public Button roadBlockBtn;
+	
+
+	[System.Serializable]
+    public class Buttons{
+        public Button outpostBtn;
+        public Button trainingBtn;
+        public Button equipmentBtn;
+        public Button chopperBtn;
+        public Button roadBlockBtn;
+    } public Buttons buttons = new Buttons();
 
 	private Cop cop;
 
@@ -24,6 +29,14 @@ public class UpgradeManager : MonoBehaviour {
 	//public int next = 10;
 	//public int trainingCount = 0;
 
+	public void resetAll(){
+		buttons.outpostBtn.interactable = true;
+		buttons.trainingBtn.interactable = true;
+		//buttons.equipmentBtn.interactable = true;
+		//buttons.chopperBtn.interactable = true;
+		//buttons.roadBlockBtn.interactable = true;
+	}
+
 	public void setCop(Cop pCop){
 		cop = pCop;
 	}
@@ -32,7 +45,7 @@ public class UpgradeManager : MonoBehaviour {
 		if (statsManager.income-statsManager.stolen-statsManager.expense>=5){
 			cop.maxAP += 1;
             statsManager.expense += 5;
-            trainingBtn.interactable = false;
+            buttons.trainingBtn.interactable = false;
 			guiManager.displayStats(statsManager);
 		} else {
 			guiManager.displayTooltip("too expensive");

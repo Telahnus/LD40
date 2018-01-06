@@ -21,6 +21,9 @@ public class GUIManager : MonoBehaviour {
     public ColorBlock highlightColors;
     public ColorBlock normalColors;
 
+    private bool paused = true;
+    public GameObject pauseScreen;
+
 	void Awake () {
         //GM = this.GetComponent<GameManager>();
         //TM = this.GetComponent<TileMaker>();
@@ -95,6 +98,11 @@ public class GUIManager : MonoBehaviour {
         }
         //print(text);//data.selectedObject.name);
         upgradeInfo.text = output;
+    }
+
+    public void togglePauseScreen(){
+        paused = !paused;
+        pauseScreen.SetActive(paused);
     }
 
 }

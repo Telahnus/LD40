@@ -17,6 +17,21 @@ public class StatsManager : MonoBehaviour {
 	public int turn = 0;
 	public float danger;
 
+	public void resetAll(){
+		tileCount = 0;
+		income = 0;
+		size = 0;
+		safety = 0;
+		tier = 0;
+		nextTier = 0;
+		crime = 0;
+		stolen = 0;
+		expense = 0;
+		net = 0;
+		turn = 0;
+		danger = 0f;
+	}
+
 	public void updateTileStats(List<Tile> graph){
 		income = 0;
         size = 0;

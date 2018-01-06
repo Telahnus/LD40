@@ -63,22 +63,7 @@ public class GameManager : MonoBehaviour {
 	/// Start is called on the frame when a script is enabled just before
 	/// any of the Update methods is called the first time.
 	void Start(){
-        currentTileObject = tileMaker.createTile(); currentTileObject.name = "currentTile";
-		currentTileScript = currentTileObject.GetComponent<Tile>();
-		currentTileScript = tileMaker.flipTile(currentTileScript);
-		currentTileObject = currentTileScript.gameObject;
-
-		copObject = createObject(prefabs.cop); copObject.name = "cop";
-		copScript = copObject.GetComponent<Cop>();
-		copScript.setLocation(0,0);
-
-		statsManager.updateTileStats(tileMaker.graph);
-		statsManager.calcTier();
-		guiManager.displayStats(statsManager);
-
-		upgradeManager.setCop(copScript);
-
-		//print(mainCamera.aspect);
+		
 	}
 
 	/// Update is called every frame, if the MonoBehaviour is enabled.
@@ -92,6 +77,7 @@ public class GameManager : MonoBehaviour {
 			//after having highlighted the button with a click first
 		if (Input.GetKeyDown(KeyCode.E)){ endTurn(); }
 		if (Input.GetKeyDown(KeyCode.Q)) { doAction(); }
+		if (Input.GetKeyDown(KeyCode.P)) { guiManager.togglePauseScreen(); }
     }
 
 	// action button (Q) is contextual
@@ -166,5 +152,35 @@ public class GameManager : MonoBehaviour {
 	public void requestOutpost(){
 		upgradeManager.buildOutpost(currentTileScript, tileMaker);
 	}
+
+	public void startNewGame(){
+		// remove existing stuff
+		criminalManager.clearAll();
+		tileMaker.clearAll();
+		Destroy(copObject);
+		statsManager.resetAll();
+		upgradeManager.resetAll();
+		mainCamera.transform.position = new Vector3(0,5,0);
+
+		// initialize everything
+        currentTileObject = tileMaker.createTile(); currentTileObject.name = "currentTile";
+        currentTileScript = currentTileObject.GetComponent<Tile>();
+        currentTileScript = tileMaker.flipTile(currentTileScript);
+        currentTileObject = currentTileScript.gameObject;
+
+        copObject = createObject(prefabs.cop); copObject.name = "cop";
+        copScript = copObject.GetComponent<Cop>();
+        copScript.setLocation(0, 0);
+
+        statsManager.updateTileStats(tileMaker.graph);
+        statsManager.calcTier();
+        guiManager.displayStats(statsManager);
+
+        upgradeManager.setCop(copScript);
+
+
+		guiManager.togglePauseScreen();
+	}
+
 
 }
