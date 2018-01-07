@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 	bool endConfirmed = false;
 	private CriminalManager criminalManager;
 	private StatsManager statsManager;
+	private bool preventP = true;
 
 	// PREFABS
 	[System.Serializable]
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour {
 	/// Start is called on the frame when a script is enabled just before
 	/// any of the Update methods is called the first time.
 	void Start(){
-		
+
 	}
 
 	/// Update is called every frame, if the MonoBehaviour is enabled.
@@ -77,7 +78,9 @@ public class GameManager : MonoBehaviour {
 			//after having highlighted the button with a click first
 		if (Input.GetKeyDown(KeyCode.E)){ endTurn(); }
 		if (Input.GetKeyDown(KeyCode.Q)) { doAction(); }
-		if (Input.GetKeyDown(KeyCode.P)) { guiManager.togglePauseScreen(); }
+		if (Input.GetKeyDown(KeyCode.P)) { 
+			if (!preventP) guiManager.togglePauseScreen();
+		}
     }
 
 	// action button (Q) is contextual
@@ -137,15 +140,30 @@ public class GameManager : MonoBehaviour {
 		} else {
 			endConfirmed = false;
 			guiManager.updateEndTurn(false, false);
+
+			checkWinLoss();
+
 			criminalManager.moveCriminals();
 			criminalManager.spawnCriminals(tileMaker.graph);
-			// check win/loss conditions
+
 			copScript.AP = copScript.maxAP;
 			guiManager.updateCopInfo(copScript.AP);
 
-			statsManager.updateTileStats(tileMaker.graph);
+			statsManager.updateTurnStats(tileMaker.graph);
 			guiManager.displayStats(statsManager);
-			statsManager.turn++;
+			//statsManager.turn++;
+		}
+	}
+
+	public void checkWinLoss(){
+		if (statsManager.checkWin()) {
+			preventP = true;
+			guiManager.togglePauseScreen();
+			guiManager.displayWin();
+		} else if (statsManager.checkLoss()){
+			preventP = true;
+			guiManager.togglePauseScreen();
+			guiManager.displayLoss();
 		}
 	}
 
@@ -154,12 +172,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void startNewGame(){
+		preventP = false;
+
 		// remove existing stuff
 		criminalManager.clearAll();
 		tileMaker.clearAll();
 		Destroy(copObject);
 		statsManager.resetAll();
 		upgradeManager.resetAll();
+		guiManager.resetDisplay();
 		mainCamera.transform.position = new Vector3(0,5,0);
 
 		// initialize everything

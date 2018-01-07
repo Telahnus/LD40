@@ -23,6 +23,7 @@ public class GUIManager : MonoBehaviour {
 
     private bool paused = true;
     public GameObject pauseScreen;
+    public Text mainText;
 
 	void Awake () {
         //GM = this.GetComponent<GameManager>();
@@ -47,11 +48,22 @@ public class GUIManager : MonoBehaviour {
     }
 
     public void displayStats(StatsManager sm){
-        statsInfo.text = "Network Size: " + sm.size + 
-                        "\nPublic Safety:" + sm.safety + "\nCrime Rate: " + sm.crime + 
-                        "\nIncome: " + sm.income + "\nStolen: " + sm.stolen + "\nExpenses: " + sm.expense +
-                        "\nNet: " + (sm.income-sm.stolen-sm.expense);
-        techInfo.text = "Rank: " + sm.tier + "\nNext Rank: " + sm.size + "/" + sm.nextTier;
+        statsInfo.text =  "Turn: " + sm.turn + 
+                        "\nNetwork Size: " + sm.size + 
+                        "\nPublic Safety:" + sm.safety + 
+                        "\nCrime Rate: " + sm.crime;
+        if (sm.lossPercent>=80){
+            statsInfo.text += "\n<color=red>Loss: " + sm.lossPercent + "%</color>";
+        } else {
+            statsInfo.text += "\nLoss: " + sm.lossPercent +"%";
+        }
+        statsInfo.text +=   "\nIncome: " + sm.income + 
+                            "\nStolen: " + sm.stolen + 
+                            "\nExpenses: " + sm.expense +
+                            "\nNet: " + sm.net;
+
+        techInfo.text =   "Rank: " + sm.tier + 
+                        "\nNext Rank: " + sm.size + "/" + sm.nextTier;
     }
 
     public void displayAPWarning(bool b){
@@ -103,6 +115,18 @@ public class GUIManager : MonoBehaviour {
     public void togglePauseScreen(){
         paused = !paused;
         pauseScreen.SetActive(paused);
+    }
+
+    public void displayWin(){
+        mainText.text = "You're a true crime fighter! Congratulations!";
+    }
+
+    public void displayLoss(){
+        mainText.text = "This is worse than Gotham! You lost!";
+    }
+
+    public void resetDisplay(){
+        mainText.text = "Welcome!";
     }
 
 }

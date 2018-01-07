@@ -15,7 +15,8 @@ public class StatsManager : MonoBehaviour {
 	public int expense = 0;
 	public int net = 0;
 	public int turn = 0;
-	public float danger;
+	public float danger = 0f;
+	public int lossPercent = 0;
 
 	public void resetAll(){
 		tileCount = 0;
@@ -30,6 +31,16 @@ public class StatsManager : MonoBehaviour {
 		net = 0;
 		turn = 0;
 		danger = 0f;
+		lossPercent = 0;
+	}
+
+	public bool checkWin(){
+		net = income - stolen - expense;
+		return net>=100;
+	}
+	public bool checkLoss(){
+		lossPercent = Mathf.RoundToInt((crime / (safety / 10f)) * 100);
+		return lossPercent>=100;
 	}
 
 	public void updateTileStats(List<Tile> graph){
@@ -45,6 +56,13 @@ public class StatsManager : MonoBehaviour {
 				else income += t.income;
             }
 		}
+		net = income - stolen - expense;
+		lossPercent = Mathf.RoundToInt((crime / (safety / 10f)) * 100);
+	}
+
+	public void updateTurnStats(List<Tile> graph){
+		turn++;
+		updateTileStats(graph);
 	}
 
 	public void addTile(Tile t){
