@@ -9,52 +9,76 @@ public class UpgradeManager : MonoBehaviour {
 	public GUIManager guiManager;
 	public GameManager gameManager;
 
-	
-
 	[System.Serializable]
     public class Buttons{
-        public Button outpostBtn;
-        public Button trainingBtn;
-        public Button equipmentBtn;
-        public Button chopperBtn;
-        public Button roadBlockBtn;
+        public Button outpost;
+        public Button training;
+        public Button equipment;
+        public Button chopper;
+        public Button roadblock;
     } public Buttons buttons = new Buttons();
+
+	[System.Serializable]
+    public class Prices{
+        public int training = 5;
+		public int outpost = 5;
+		public int chopper = 5;
+    } public Prices prices = new Prices();
 
 	private Cop cop;
 
 	public GameObject outpostPrefab;
-	public GameObject dynamic_folder;
+	public GameObject upgrades_folder;
 
 	//public int tier = 0;
 	//public int next = 10;
 	//public int trainingCount = 0;
 
 	public void resetAll(){
-		buttons.outpostBtn.interactable = true;
-		buttons.trainingBtn.interactable = true;
+		buttons.outpost.interactable = true;
+		buttons.training.interactable = true;
 		//buttons.equipmentBtn.interactable = true;
-		//buttons.chopperBtn.interactable = true;
+		buttons.chopper.interactable = true;
 		//buttons.roadBlockBtn.interactable = true;
+
+		foreach (Transform child in upgrades_folder.transform){
+            Destroy(child.gameObject);
+        }
 	}
 
 	public void setCop(Cop pCop){
 		cop = pCop;
 	}
 
+	public void chopper(){
+		if (statsManager.net >= prices.chopper){
+			addExpense(prices.chopper);
+            buttons.chopper.interactable = false;
+			gameManager.increaseView();
+        } else {
+            guiManager.displayTooltip("too expensive");
+        }
+	}
+
+	public void addExpense(int expense){
+		statsManager.expense += expense;
+		statsManager.calcNet();
+		guiManager.displayStats(statsManager);
+	}
+
 	public void training(){
-		if (statsManager.income-statsManager.stolen-statsManager.expense>=5){
+		if (statsManager.net >= prices.training){
 			cop.maxAP += 1;
-            statsManager.expense += 5;
-            buttons.trainingBtn.interactable = false;
-			guiManager.displayStats(statsManager);
+			addExpense(prices.training);
+            buttons.training.interactable = false;
 		} else {
 			guiManager.displayTooltip("too expensive");
 		}
 	}
 
 	public void outpost(){
-		if (statsManager.income - statsManager.stolen - statsManager.expense >= 5){
-			gameManager.requestOutpost();
+		if (statsManager.net >=  prices.outpost){
+			gameManager.requestOutpost(); //grabs required objects then comes back here
         } else {
             guiManager.displayTooltip("too expensive");
         }
@@ -71,11 +95,10 @@ public class UpgradeManager : MonoBehaviour {
 					if (s != null) s.isWatched = true;
 				}
 			}
-            statsManager.expense += 5;
-            guiManager.displayStats(statsManager);
+			addExpense(prices.outpost);
 
 			GameObject outpostObject = Instantiate(outpostPrefab);
-			outpostObject.transform.parent = dynamic_folder.transform;
+			outpostObject.transform.parent = upgrades_folder.transform;
 			outpostObject.transform.position = new Vector3(t.x, 0, t.z);
         }
 	}

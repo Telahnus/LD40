@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour {
 	[System.Serializable]
 	public class References {
 		public GameObject dynamic_folder;
-		public GameObject tile_folder;
 	} public References refs = new References();
 
 	// METHODS
@@ -56,7 +55,6 @@ public class GameManager : MonoBehaviour {
         upgradeManager.statsManager = statsManager;
 		upgradeManager.guiManager = guiManager;
 		upgradeManager.gameManager = this;
-		upgradeManager.dynamic_folder = this.refs.dynamic_folder;
 
         mainCamera = Camera.main;
 	}
@@ -93,8 +91,7 @@ public class GameManager : MonoBehaviour {
 					copScript.AP -= currentTileScript.criminal.level;
 					criminalManager.captureCriminal(currentTileScript.criminal, currentTileScript);
 					guiManager.updateCopInfo(copScript.AP);
-					guiManager.updateTileInfo(currentTileScript);
-					statsManager.updateTileStats(tileMaker.graph);
+					statsManager.takeBackTile(currentTileScript);
                     guiManager.displayStats(statsManager);
 				} else { // not enuf AP to capture criminal
 					guiManager.displayAPWarning(true);
@@ -108,24 +105,28 @@ public class GameManager : MonoBehaviour {
 	public void moveCommand(int direction){
 		if (copScript.hasAP()){
 			guiManager.displayAPWarning(false);
-			//currentTileScript = tileMaker.findTile(copScript.x, copScript.z);
 			if (currentTileScript.openings[direction]){
+
+				// move the cop and camera 
 				copScript.move(direction);
-				if (endConfirmed){ endConfirmed = false; }
-				if (copScript.AP==0){
-					guiManager.updateEndTurn(true,false);
-				} else { 
-					guiManager.updateEndTurn(false,false);
-				}
-				guiManager.updateCopInfo(copScript.AP);
-				mainCamera.transform.position = copObject.transform.position + new Vector3(0,4.5f,0); 
+                mainCamera.transform.position = copObject.transform.position + new Vector3(0, 4.5f, 0);
+                // update GUI as required
+				if (endConfirmed) { endConfirmed = false; } // turns off "are you sure?"
+				// highlight endturnbtn if appropriate
+                if (copScript.AP == 0) { guiManager.updateEndTurn(true, false); }
+                else { guiManager.updateEndTurn(false, false); }
+				guiManager.updateCopInfo(copScript.AP); // update action points display
+
+				// update current tile script and object
 				currentTileScript = tileMaker.findTileAtLocation(copScript.x, copScript.z);
 				currentTileObject = currentTileScript.gameObject;
+				// flip the tile if it was blank
 				if (currentTileScript.type == "blank"){
 					currentTileScript = tileMaker.flipTile(currentTileScript);
 					currentTileObject = currentTileScript.gameObject;
 					guiManager.displayStats(statsManager);
 				}
+
 			}
 		} else {
 			guiManager.displayAPWarning(true);
@@ -143,7 +144,7 @@ public class GameManager : MonoBehaviour {
 
 			checkWinLoss();
 
-			criminalManager.moveCriminals();
+			criminalManager.moveCriminals(tileMaker);
 			criminalManager.spawnCriminals(tileMaker.graph);
 
 			copScript.AP = copScript.maxAP;
@@ -151,7 +152,6 @@ public class GameManager : MonoBehaviour {
 
 			statsManager.updateTurnStats(tileMaker.graph);
 			guiManager.displayStats(statsManager);
-			//statsManager.turn++;
 		}
 	}
 
@@ -182,8 +182,9 @@ public class GameManager : MonoBehaviour {
 		upgradeManager.resetAll();
 		guiManager.resetDisplay();
 		mainCamera.transform.position = new Vector3(0,5,0);
+		mainCamera.orthographicSize = 3;
 
-		// initialize everything
+		// re-initialize everything
         currentTileObject = tileMaker.createTile(); currentTileObject.name = "currentTile";
         currentTileScript = currentTileObject.GetComponent<Tile>();
         currentTileScript = tileMaker.flipTile(currentTileScript);
@@ -199,9 +200,11 @@ public class GameManager : MonoBehaviour {
 
         upgradeManager.setCop(copScript);
 
-
 		guiManager.togglePauseScreen();
 	}
 
+	public void increaseView(){
+		mainCamera.orthographicSize++;
+	}
 
 }

@@ -98,7 +98,7 @@ public class TileMaker : MonoBehaviour {
         checkWatchStatus(newTileScript);
 
         graph.Add(newTileScript);
-        statsManager.addTile(newTileScript);
+        statsManager.addTileStats(newTileScript);
         return newTileScript;
     }
 
@@ -129,6 +129,7 @@ public class TileMaker : MonoBehaviour {
     }
 
     // flip a blank tile into a road tile according to a whole bunch of rules
+    // calls statsManager.addTileStats
     public Tile flipTile(Tile tile){
 
         int openings = 0;

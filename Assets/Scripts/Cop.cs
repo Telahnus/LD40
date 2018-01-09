@@ -8,6 +8,7 @@ public class Cop : MonoBehaviour {
 	public int z = 0;
 	public int AP = 4;
 	public int maxAP = 4;
+	public float yOffset = 0.5f;
 
 	public bool hasAP(){
 		return (this.AP>0);
@@ -16,7 +17,7 @@ public class Cop : MonoBehaviour {
 	public void setLocation(int x, int z){
 		this.x = x;
 		this.z = z;
-		transform.position = new Vector3(this.x, 0.5f, this.z);
+		transform.position = new Vector3(this.x, yOffset, this.z);
 	}
 
 	public void move(int direction){
@@ -24,7 +25,7 @@ public class Cop : MonoBehaviour {
 		else if (direction==1){this.x++;}
 		else if (direction==2){this.z--;}
 		else if (direction==3){this.x--;}
-		transform.position = new Vector3(this.x, 0.5f, this.z);
+		transform.position = new Vector3(this.x, yOffset, this.z);
 		this.AP--;
 	}
 

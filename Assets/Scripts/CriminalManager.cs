@@ -49,8 +49,8 @@ public class CriminalManager : MonoBehaviour {
 		return criminalScript;
 	}
 
-	public void moveCriminals(){
-		TileMaker TM = this.GetComponent<TileMaker>();
+	public void moveCriminals(TileMaker TM){
+		//TileMaker TM = this.GetComponent<TileMaker>();
 		foreach (Criminal c in criminals){
 			if (c.canMove){
 				Tile t = TM.findTileAtLocation(c.x,c.z);

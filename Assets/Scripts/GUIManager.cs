@@ -105,6 +105,7 @@ public class GUIManager : MonoBehaviour {
         {
             case "outpost": output = "Setup outpost on current tile, reducing danger of surrounding tiles, Cost 5"; break;
             case "training": output = "Increase maximum AP by 1, Cost 5"; break;
+            case "chopper": output = "Increase view of the city, Cost 5"; break;
             case "too expensive": output = "Request denied. Not enough income."; break;
             default: output = text; break;
         }
@@ -126,7 +127,7 @@ public class GUIManager : MonoBehaviour {
     }
 
     public void resetDisplay(){
-        mainText.text = "Welcome!";
+        mainText.text = "Welcome to the gam!";
     }
 
 }
