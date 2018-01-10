@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour {
 		upgradeManager.resetAll();
 		guiManager.resetDisplay();
 		mainCamera.transform.position = new Vector3(0,5,0);
-		mainCamera.orthographicSize = 3;
+		mainCamera.orthographicSize = 4;
 
 		// re-initialize everything
         currentTileObject = tileMaker.createTile(); currentTileObject.name = "currentTile";

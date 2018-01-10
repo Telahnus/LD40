@@ -49,9 +49,9 @@ public class GUIManager : MonoBehaviour {
 
     public void displayStats(StatsManager sm){
         statsInfo.text =  "Turn: " + sm.turn + 
-                        "\nNetwork Size: " + sm.size + 
-                        "\nPublic Safety:" + sm.safety + 
-                        "\nCrime Rate: " + sm.crime;
+                        "\nSize: " + sm.size + 
+                        "\nSafety:" + sm.safety + 
+                        "\nCrime: " + sm.crime;
         if (sm.lossPercent>=80){
             statsInfo.text += "\n<color=red>Loss: " + sm.lossPercent + "%</color>";
         } else {
@@ -94,7 +94,7 @@ public class GUIManager : MonoBehaviour {
         tileInfo.text = "Tile Info\nType: "+t.type;
         if (t.type!="blank") {
             tileInfo.text += "\nIncome: "+t.income+"\nSafety: "+t.safety+"\nDanger: "+t.danger;
-            if (t.isWatched) tileInfo.text += "\nUnder surveillance";
+            //if (t.isWatched) tileInfo.text += "\nUnder surveillance";
         }
         if (t.hasCriminal) tileInfo.text+="\n\nCriminal Info\nLevel: "+t.criminal.level;
     }
