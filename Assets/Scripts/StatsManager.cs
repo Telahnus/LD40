@@ -93,6 +93,7 @@ public class StatsManager : MonoBehaviour {
 		danger += t.danger;
 		calcLossPercent();
 		calcNet();
+		calcTier();
 	}
 
 	public void calcNet(){

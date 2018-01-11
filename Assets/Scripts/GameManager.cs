@@ -40,29 +40,28 @@ public class GameManager : MonoBehaviour {
 		return newObject;
 	}
 
-
 	/// Awake is called when the script instance is being loaded.
+	// use to grab all the refs
 	void Awake(){
 		tileMaker = this.GetComponent<TileMaker>();
         guiManager = this.GetComponent<GUIManager>();
         criminalManager = this.GetComponent<CriminalManager>();
         upgradeManager = this.GetComponent<UpgradeManager>();
         statsManager = this.GetComponent<StatsManager>();
-
-        tileMaker.statsManager = statsManager;
-        guiManager.statsManager = statsManager;
-        criminalManager.statsManager = statsManager;
-        upgradeManager.statsManager = statsManager;
-		upgradeManager.guiManager = guiManager;
-		upgradeManager.gameManager = this;
-
-        mainCamera = Camera.main;
 	}
 
 	/// Start is called on the frame when a script is enabled just before
 	/// any of the Update methods is called the first time.
+	// use to pass refs
 	void Start(){
+		tileMaker.statsManager = statsManager;
+        guiManager.statsManager = statsManager;
+        criminalManager.statsManager = statsManager;
+        upgradeManager.statsManager = statsManager;
+        upgradeManager.guiManager = guiManager;
+        upgradeManager.gameManager = this;
 
+        mainCamera = Camera.main;
 	}
 
 	/// Update is called every frame, if the MonoBehaviour is enabled.

@@ -25,26 +25,24 @@ public class GUIManager : MonoBehaviour {
     public GameObject pauseScreen;
     public Text mainText;
 
+    // user awake to find everything
 	void Awake () {
-        //GM = this.GetComponent<GameManager>();
-        //TM = this.GetComponent<TileMaker>();
-
         techInfo = GameObject.Find("TechInfo").GetComponent<Text>();
-        techInfo.text = "Rank: 1\nNext Rank: X/10";
         statsInfo = GameObject.Find("StatsInfo").GetComponent<Text>();
-        statsInfo.text = "Network Size:\nIncome:\nPublic Safety:\nCrime Rate:";
         tileInfo = GameObject.Find("TileInfo").GetComponent<Text>();
-        tileInfo.text = "Tile Info";
         copInfo = GameObject.Find("CopInfo").GetComponent<Text>();
-        copInfo.text = "Actions: * * * *";
         endTurnText = GameObject.Find("EndTurnText").GetComponent<Text>();
         endTurnButton = GameObject.Find("EndTurnButton").GetComponent<Button>();
         APWarning = GameObject.Find("APWarning").GetComponent<Text>();
-        APWarning.enabled = false;
         upgradeInfo = GameObject.Find("UpgradeInfo").GetComponent<Text>();
-        upgradeInfo.text = "";
+    }
 
+    // use start to pass refs and set things
+    void Start(){
+        APWarning.enabled = false;
+        upgradeInfo.text = "";
         endTurnButton.colors = normalColors;
+        pauseScreen.SetActive(true);
     }
 
     public void displayStats(StatsManager sm){

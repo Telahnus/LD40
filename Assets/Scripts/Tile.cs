@@ -15,9 +15,11 @@ public class Tile : MonoBehaviour {
 	public bool hasCriminal = false;
 	public bool hasOutpost = false;
 	public bool isWatched = false;
+	private bool selected = false;
 
 	public Criminal criminal;
 	private GUIManager GM;
+	private TileMaker TM;
 
 	void Awake(){
 		GM = GameObject.Find("GameManager").GetComponent<GUIManager>();
@@ -56,32 +58,47 @@ public class Tile : MonoBehaviour {
 
 	void OnMouseDown(){
 		GM.updateTileInfo(this);
+		/* foreach(Tile t in TM.graph) {
+			if (t.selected){
+				t.selected = false;
+				t.UnHighlight();
+			}
+		}
+		selected = true; */
 	}
 
-	void OnMouseEnter(){
+	void Highlight(){
 		foreach (Renderer r in GetComponentsInChildren<Renderer>()){
-			if (r.tag == "Border"){
-				Color newColor = new Color();
-				newColor = r.material.color;
-				newColor.r += 0.2f;
-				newColor.g += 0.2f;
-				newColor.b += 0.2f;
-				r.material.color = newColor;
-			}
+            if (r.tag == "Border"){
+                Color newColor = new Color();
+                newColor = r.material.color;
+                newColor.r += 0.2f;
+                newColor.g += 0.2f;
+                newColor.b += 0.2f;
+                r.material.color = newColor;
+            }
         }
+	}
+
+	void UnHighlight(){
+        foreach (Renderer r in GetComponentsInChildren<Renderer>()){
+            if (r.tag == "Border"){
+                Color newColor = new Color();
+                newColor = r.material.color;
+                newColor.r -= 0.2f;
+                newColor.g -= 0.2f;
+                newColor.b -= 0.2f;
+                r.material.color = newColor;
+            }
+        }
+    }
+
+	void OnMouseEnter(){
+		Highlight();
 	}
 
 	void OnMouseExit(){
-        foreach (Renderer r in GetComponentsInChildren<Renderer>()){
-			if (r.tag == "Border"){
-				Color newColor = new Color();
-				newColor = r.material.color;
-				newColor.r -= 0.2f;
-				newColor.g -= 0.2f;
-				newColor.b -= 0.2f;
-				r.material.color = newColor;
-			}
-        }
+        UnHighlight();
     }
 	
 }
