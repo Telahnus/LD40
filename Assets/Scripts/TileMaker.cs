@@ -257,8 +257,4 @@ public class TileMaker : MonoBehaviour {
         return null;
     }
 
-    /* public void Start(){
-        print(graph.Count);
-    } */
-
 }

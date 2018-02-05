@@ -23,11 +23,14 @@ public class UpgradeManager : MonoBehaviour {
         public int training = 5;
 		public int outpost = 5;
 		public int chopper = 5;
+		public int equipment = 5;
+		public int roadblock = 1;
     } public Prices prices = new Prices();
 
 	private Cop cop;
 
 	public GameObject outpostPrefab;
+	public GameObject roadblockPrefab;
 	public GameObject upgrades_folder;
 
 	//public int tier = 0;
@@ -37,9 +40,9 @@ public class UpgradeManager : MonoBehaviour {
 	public void resetAll(){
 		buttons.outpost.interactable = true;
 		buttons.training.interactable = true;
-		//buttons.equipmentBtn.interactable = true;
+		buttons.equipment.interactable = true;
 		buttons.chopper.interactable = true;
-		//buttons.roadBlockBtn.interactable = true;
+		buttons.roadblock.interactable = true;
 
 		foreach (Transform child in upgrades_folder.transform){
             Destroy(child.gameObject);
@@ -78,16 +81,17 @@ public class UpgradeManager : MonoBehaviour {
 
 	public void outpost(){
 		if (statsManager.net >=  prices.outpost){
-			gameManager.requestOutpost(); //grabs required objects then comes back here
+			gameManager.requestResources("outpost"); //grabs required objects then comes back here
         } else {
             guiManager.displayTooltip("too expensive");
         }
 	}
 
 	public void buildOutpost(Tile t, TileMaker tm){
-		if (t.hasOutpost){
-			guiManager.displayTooltip("This block already has an outpost.");
+		if (t.hasBuilding){
+			guiManager.displayTooltip("This block already has a building.");
 		} else {
+			t.hasBuilding = true;
 			t.hasOutpost = true;
 			for (int i=-1; i<=1; i++){
 				for (int j=-1; j<=1; j++){
@@ -101,6 +105,38 @@ public class UpgradeManager : MonoBehaviour {
 			outpostObject.transform.parent = upgrades_folder.transform;
 			outpostObject.transform.position = new Vector3(t.x, 0, t.z);
         }
+	}
+
+	public void roadblock(){
+		if (statsManager.net >=  prices.roadblock){
+			gameManager.requestResources("roadblock"); //grabs required objects then comes back here
+        } else {
+            guiManager.displayTooltip("too expensive");
+        } 
+	}
+
+	public void buildRoadBlock(Tile t, TileMaker tm){
+		if (t.hasBuilding){
+			guiManager.displayTooltip("This block already has a building.");
+		} else {
+			t.hasBuilding = true;
+			t.hasRoadBlock = true;
+			addExpense(prices.roadblock);
+
+			GameObject roadblockObject = Instantiate(roadblockPrefab);
+			roadblockObject.transform.parent = upgrades_folder.transform;
+			roadblockObject.transform.position = new Vector3(t.x, 0, t.z);
+		}
+	}
+
+	public void equipment(){
+		if (statsManager.net >= prices.equipment){
+			cop.power += 1;
+			addExpense(prices.equipment);
+            buttons.equipment.interactable = false;
+		} else {
+			guiManager.displayTooltip("too expensive");
+		}
 	}
 
 }

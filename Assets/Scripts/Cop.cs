@@ -9,6 +9,7 @@ public class Cop : MonoBehaviour {
 	public int AP = 4;
 	public int maxAP = 4;
 	public float yOffset = 0.5f;
+	public int power = 0;
 
 	public bool hasAP(){
 		return (this.AP>0);

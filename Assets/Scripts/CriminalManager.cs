@@ -59,7 +59,7 @@ public class CriminalManager : MonoBehaviour {
 					int mod = (offset+i)%4;
 					if (t.openings[mod] && t.neighbours[mod]!=null){
 						Tile n = t.neighbours[mod];
-						if (n.type!="blank" && !n.hasCriminal){
+						if (n.type!="blank" && !n.hasCriminal && !n.hasRoadBlock){
 							c.setLocation(n.x, n.z);
 							n.setCriminal(c);
 							t.setCriminal(null);

@@ -15,14 +15,16 @@ public class Tile : MonoBehaviour {
 	public bool hasCriminal = false;
 	public bool hasOutpost = false;
 	public bool isWatched = false;
-	private bool selected = false;
+	public bool isSelected = false;
+	public bool isHovered = false;
+	public bool hasBuilding = false;
+	public bool hasRoadBlock = false;
 
 	public Criminal criminal;
-	private GUIManager GM;
-	private TileMaker TM;
+	private GameManager GM;
 
 	void Awake(){
-		GM = GameObject.Find("GameManager").GetComponent<GUIManager>();
+		GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 		this.neighbours = new Tile[4];
         this.openings = new bool[4] { false, false, false, false };
 	}
@@ -57,48 +59,13 @@ public class Tile : MonoBehaviour {
 	}
 
 	void OnMouseDown(){
-		GM.updateTileInfo(this);
-		/* foreach(Tile t in TM.graph) {
-			if (t.selected){
-				t.selected = false;
-				t.UnHighlight();
-			}
-		}
-		selected = true; */
+		GM.selectTile(this);
 	}
-
-	void Highlight(){
-		foreach (Renderer r in GetComponentsInChildren<Renderer>()){
-            if (r.tag == "Border"){
-                Color newColor = new Color();
-                newColor = r.material.color;
-                newColor.r += 0.2f;
-                newColor.g += 0.2f;
-                newColor.b += 0.2f;
-                r.material.color = newColor;
-            }
-        }
-	}
-
-	void UnHighlight(){
-        foreach (Renderer r in GetComponentsInChildren<Renderer>()){
-            if (r.tag == "Border"){
-                Color newColor = new Color();
-                newColor = r.material.color;
-                newColor.r -= 0.2f;
-                newColor.g -= 0.2f;
-                newColor.b -= 0.2f;
-                r.material.color = newColor;
-            }
-        }
-    }
-
 	void OnMouseEnter(){
-		Highlight();
+		GM.Highlight(this);
 	}
-
 	void OnMouseExit(){
-        UnHighlight();
+		GM.UnHighlight(this);
     }
 	
 }

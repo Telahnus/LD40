@@ -104,6 +104,8 @@ public class GUIManager : MonoBehaviour {
             case "outpost": output = "Setup outpost on current tile, reducing danger of surrounding tiles, Cost 5"; break;
             case "training": output = "Increase maximum AP by 1, Cost 5"; break;
             case "chopper": output = "Increase view of the city, Cost 5"; break;
+            case "equipment": output = "Better equipment let's you catch criminals easier, reducing AP cost by 1 (to a minimum of 1), Cost 5"; break;
+            case "roadblock": output = "Prevent criminal movement through this city block. Cost 1"; break;
             case "too expensive": output = "Request denied. Not enough income."; break;
             default: output = text; break;
         }

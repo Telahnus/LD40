@@ -1926,6 +1926,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &76211989
 BoxCollider:
@@ -4609,6 +4613,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &195068365
 BoxCollider:
@@ -5188,6 +5196,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &216008028
 BoxCollider:
@@ -6063,6 +6075,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &241157055
 BoxCollider:
@@ -6512,6 +6528,80 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 281142859}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &298356732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 298356733}
+  - component: {fileID: 298356735}
+  - component: {fileID: 298356734}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &298356733
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 298356732}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 461832047}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &298356734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 298356732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Equipment
+--- !u!222 &298356735
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 298356732}
 --- !u!1 &299199624
 GameObject:
   m_ObjectHideFlags: 0
@@ -7280,6 +7370,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &334559684
 BoxCollider:
@@ -9457,6 +9551,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &427534517
 BoxCollider:
@@ -10187,6 +10285,210 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456160121}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &461832046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 461832047}
+  - component: {fileID: 461832050}
+  - component: {fileID: 461832049}
+  - component: {fileID: 461832051}
+  - component: {fileID: 461832048}
+  m_Layer: 5
+  m_Name: EquipmentBtn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &461832047
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461832046}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -50, z: 0}
+  m_LocalScale: {x: 1.0000042, y: 1.0000042, z: 1.0000042}
+  m_Children:
+  - {fileID: 298356733}
+  m_Father: {fileID: 1632378232}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 150, y: 35}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &461832048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461832046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755815483}
+          m_MethodName: displayTooltip
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: equipment
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755815483}
+          m_MethodName: displayTooltip
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: equipment
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755815483}
+          m_MethodName: displayTooltip
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755815483}
+          m_MethodName: displayTooltip
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
+--- !u!114 &461832049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461832046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &461832050
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461832046}
+--- !u!114 &461832051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461832046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 461832049}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1755815485}
+        m_MethodName: equipment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &462198553
 GameObject:
   m_ObjectHideFlags: 0
@@ -10723,6 +11025,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &475273030
 BoxCollider:
@@ -11300,6 +11606,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &510178544
 BoxCollider:
@@ -11623,6 +11933,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &532084157
 BoxCollider:
@@ -12370,6 +12684,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &587959385
 BoxCollider:
@@ -13141,6 +13459,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &626985257
 BoxCollider:
@@ -16956,6 +17278,80 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 766035782}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &766832328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 766832329}
+  - component: {fileID: 766832331}
+  - component: {fileID: 766832330}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &766832329
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 766832328}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1345398108}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &766832330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 766832328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Road Block
+--- !u!222 &766832331
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 766832328}
 --- !u!1 &767636699
 GameObject:
   m_ObjectHideFlags: 0
@@ -17000,6 +17396,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &767636701
 BoxCollider:
@@ -17831,6 +18231,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &810931770
 BoxCollider:
@@ -21360,6 +21764,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &989436404
 BoxCollider:
@@ -21515,6 +21923,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &990970227
 BoxCollider:
@@ -22437,6 +22849,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1055487432
 BoxCollider:
@@ -22582,6 +22998,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1065459954
 BoxCollider:
@@ -23941,6 +24361,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1132767537
 BoxCollider:
@@ -25570,6 +25994,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1196255372
 BoxCollider:
@@ -26151,6 +26579,10 @@ MonoBehaviour:
   hasCriminal: 1
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1218058823
 BoxCollider:
@@ -26222,6 +26654,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1227348244
 BoxCollider:
@@ -26561,6 +26997,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1236325345
 BoxCollider:
@@ -27224,6 +27664,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1266016545
 BoxCollider:
@@ -27799,6 +28243,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1297168162
 BoxCollider:
@@ -27939,6 +28387,10 @@ MonoBehaviour:
   hasCriminal: 1
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1306181325
 BoxCollider:
@@ -28554,6 +29006,210 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1340837842}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1345398103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1345398108}
+  - component: {fileID: 1345398107}
+  - component: {fileID: 1345398105}
+  - component: {fileID: 1345398104}
+  - component: {fileID: 1345398106}
+  m_Layer: 5
+  m_Name: RoadBlockBtn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1345398104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1345398103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1345398105}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1755815485}
+        m_MethodName: roadblock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1345398105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1345398103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!114 &1345398106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1345398103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755815483}
+          m_MethodName: displayTooltip
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: roadblock
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755815483}
+          m_MethodName: displayTooltip
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: roadblock
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755815483}
+          m_MethodName: displayTooltip
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 10
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755815483}
+          m_MethodName: displayTooltip
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
+--- !u!222 &1345398107
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1345398103}
+--- !u!224 &1345398108
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1345398103}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -100, z: 0}
+  m_LocalScale: {x: 1.0000042, y: 1.0000042, z: 1.0000042}
+  m_Children:
+  - {fileID: 766832329}
+  m_Father: {fileID: 1632378232}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 150, y: 35}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1346614016
 GameObject:
   m_ObjectHideFlags: 0
@@ -28682,6 +29338,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1360202015
 BoxCollider:
@@ -30162,6 +30822,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1433236508
 BoxCollider:
@@ -30823,6 +31487,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1467496684
 BoxCollider:
@@ -31738,6 +32406,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1514430643
 BoxCollider:
@@ -32995,6 +33667,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1583754858
 BoxCollider:
@@ -33066,6 +33742,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1588843734
 BoxCollider:
@@ -34255,6 +34935,8 @@ RectTransform:
   - {fileID: 2033334911}
   - {fileID: 229129693}
   - {fileID: 1923502387}
+  - {fileID: 461832047}
+  - {fileID: 1345398108}
   m_Father: {fileID: 1384296387}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34868,6 +35550,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1665584873
 BoxCollider:
@@ -36674,6 +37360,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1739760148
 BoxCollider:
@@ -37262,6 +37952,7 @@ MonoBehaviour:
     robber: {fileID: 0}
   refs:
     dynamic_folder: {fileID: 891635427}
+  selectedTile: {fileID: 0}
 --- !u!114 &1755815482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37345,14 +38036,18 @@ MonoBehaviour:
   buttons:
     outpost: {fileID: 229129695}
     training: {fileID: 2033334912}
-    equipment: {fileID: 0}
+    equipment: {fileID: 461832051}
     chopper: {fileID: 1923502389}
-    roadblock: {fileID: 0}
+    roadblock: {fileID: 1345398104}
   prices:
     training: 5
     outpost: 5
     chopper: 5
+    equipment: 5
+    roadblock: 1
   outpostPrefab: {fileID: 1131060064640284, guid: d4e6b7df7bfcf3d47b7cc82963617c05,
+    type: 2}
+  roadblockPrefab: {fileID: 1515002108228244, guid: 9e3fa31d09be2a64a8947fcf9c4d9e40,
     type: 2}
   upgrades_folder: {fileID: 617804984}
 --- !u!114 &1755815486
@@ -37423,6 +38118,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1760611201
 BoxCollider:
@@ -39902,6 +40601,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1901768223
 BoxCollider:
@@ -39959,6 +40662,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1904770565
 BoxCollider:
@@ -40738,6 +41445,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &1937135193
 BoxCollider:
@@ -41991,6 +42702,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &2011956646
 BoxCollider:
@@ -42062,6 +42777,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &2018344013
 BoxCollider:
@@ -43179,6 +43898,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &2043174663
 BoxCollider:
@@ -43586,6 +44309,10 @@ MonoBehaviour:
   hasCriminal: 0
   hasOutpost: 0
   isWatched: 0
+  isSelected: 0
+  isHovered: 0
+  hasBuilding: 0
+  hasRoadBlock: 0
   criminal: {fileID: 0}
 --- !u!65 &2070797909
 BoxCollider:

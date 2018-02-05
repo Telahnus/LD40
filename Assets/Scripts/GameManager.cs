@@ -86,8 +86,10 @@ public class GameManager : MonoBehaviour {
 		if (copScript.hasAP()){
 			guiManager.displayAPWarning(false);
 			if (currentTileScript.hasCriminal){
-				if (copScript.AP >= currentTileScript.criminal.level){
-					copScript.AP -= currentTileScript.criminal.level;
+				int catchCost = currentTileScript.criminal.level - copScript.power;
+				if (catchCost<=0) catchCost=1;
+				if (copScript.AP >= catchCost){
+					copScript.AP -= catchCost;
 					criminalManager.captureCriminal(currentTileScript.criminal, currentTileScript);
 					guiManager.updateCopInfo(copScript.AP);
 					statsManager.takeBackTile(currentTileScript);
@@ -166,8 +168,13 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void requestOutpost(){
-		upgradeManager.buildOutpost(currentTileScript, tileMaker);
+	public void requestResources(string request){
+		switch (request)
+		{
+			case "outpost": upgradeManager.buildOutpost(currentTileScript, tileMaker); break;
+			case "roadblock": upgradeManager.buildRoadBlock(currentTileScript, tileMaker); break;
+			default: break;
+		}
 	}
 
 	public void startNewGame(){
@@ -205,5 +212,39 @@ public class GameManager : MonoBehaviour {
 	public void increaseView(){
 		mainCamera.orthographicSize++;
 	}
+
+	public Tile selectedTile;
+
+	public void selectTile(Tile t){
+		if (selectedTile!=t){
+			Tile temp = selectedTile;
+			selectedTile = t;
+			if (temp!=null) UnHighlight(temp);
+			guiManager.updateTileInfo(selectedTile);
+		}
+	}
+	
+	private Color hi = new Color(0.2f, 0.2f, 0.2f, 1);
+	private Color lo = new Color(0,0,0,1);
+
+	public void Highlight(Tile t){
+		if (selectedTile!=t){
+			foreach (Renderer r in t.gameObject.GetComponentsInChildren<Renderer>()){
+				if (r.tag == "Border"){
+					r.material.color = hi;
+				}
+			}
+		}
+	}
+
+	public void UnHighlight(Tile t){
+		if (selectedTile!=t){
+			foreach (Renderer r in t.gameObject.GetComponentsInChildren<Renderer>()){
+				if (r.tag == "Border"){
+					r.material.color = lo;
+				}
+			}
+		}
+    }
 
 }
